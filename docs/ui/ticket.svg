@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="420" height="880" viewBox="0 0 420 880">
+  <defs>
+    <style>
+      .shell{fill:#f4f5f8;stroke:#111;stroke-width:2;rx:38;ry:38}
+      .dark{fill:#111}
+      .light{fill:#fff}
+      .card{fill:#fff;stroke:#d8dce5;stroke-width:1.6;rx:16;ry:16;filter:drop-shadow(0px 4px 6px rgba(0,0,0,0.07))}
+      .shadow{filter:url(#shadow)}
+      .title{font:700 20px "DejaVu Sans", Arial, sans-serif;fill:#111}
+      .text{font:14px "DejaVu Sans", Arial, sans-serif;fill:#1b1f23}
+      .caption{font:12px "DejaVu Sans", Arial, sans-serif;fill:#64748b}
+      .accent{fill:url(#green-gradient)}
+      .light-accent{fill:#e5f6ee}
+      .accent-text{font:600 14px "DejaVu Sans", Arial, sans-serif;fill:#1b8a5a}
+      .cta{fill:url(#green-gradient);stroke:#166a46;stroke-width:1.4;rx:14;ry:14}
+      .cta-text{font:600 15px "DejaVu Sans", Arial, sans-serif;fill:#fff}
+      .badge{fill:#e0f3ea;stroke:#1b8a5a;stroke-width:1;rx:12;ry:12}
+      .danger{fill:#fee2e2;stroke:#c62828;stroke-width:1.4;rx:12;ry:12}
+      .switch-track{fill:#dde4ec;rx:16;ry:16}
+      .switch-thumb{fill:url(#green-gradient);stroke:#166a46;stroke-width:1}
+      .qr{stroke:#1f2937;stroke-width:2}
+      .divider{stroke:#e2e8f0;stroke-width:1}
+      .icon{fill:#475569}
+      @keyframes pulse {
+        0% { opacity: 0.8; }
+        50% { opacity: 1; }
+        100% { opacity: 0.8; }
+      }
+      .pulse {
+        animation: pulse 2s infinite ease-in-out;
+      }
+    </style>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#1b1f2318"/>
+    </filter>
+    <linearGradient id="green-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#1b8a5a"/>
+    </linearGradient>
+    <linearGradient id="qr-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fcfcfc"/>
+      <stop offset="100%" stop-color="#f4f4f4"/>
+    </linearGradient>
+    <pattern id="qr-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="10" height="10" fill="#222"/>
+      <rect x="10" y="0" width="10" height="10" fill="#000"/>
+      <rect x="0" y="10" width="10" height="10" fill="#111"/>
+      <rect x="10" y="10" width="10" height="10" fill="#333"/>
+    </pattern>
+  </defs>
+
+  <rect class="shell" x="8" y="8" width="404" height="864"/>
+  <rect class="dark" x="140" y="18" width="140" height="6" rx="3"/>
+
+  <g transform="translate(28,54)">
+    <text x="0" y="0" class="title">Билет • UMS Derby</text>
+    <text x="0" y="24" class="caption">Суббота, 19:00 • Вход откроется за 45 минут</text>
+  </g>
+
+  <!-- Seat card -->
+  <g transform="translate(24,94)" class="shadow">
+    <rect class="card" width="372" height="180"/>
+  <rect x="20" y="20" width="24" height="24" rx="12" class="light-accent"/>
+  <path class="icon" transform="translate(24,24)" d="M16 2v7h-2V4h-4v12h2v2H2v-2h2V4H0V2h16zm-5 9V9h-2v2H6v2h3v2h2v-2h3v-2h-3z"/>
+    <text x="60" y="41" class="text" font-weight="600">Сектор A12 · Ряд 7 · Место 14</text>
+    <text x="24" y="74" class="caption">Вход №3 · Блок восточной трибуны</text>
+  <rect class="qr" x="260" y="50" width="84" height="84" rx="12" fill="url(#qr-gradient)"/>
+  <rect x="270" y="60" width="64" height="64" fill="url(#qr-pattern)" class="pulse"/>
+    <rect class="badge" x="28" y="104" width="172" height="34"/>
+    <text x="32" y="126" class="text">QR обновится через 23 с</text>
+    <line class="divider" x1="24" y1="156" x2="348" y2="156"/>
+    <text x="24" y="172" class="caption">ID билета: #2348109-AE · UMS Derby vs Рапид</text>
+  </g>
+
+  <!-- NFC pass -->
+  <g transform="translate(24,302)" class="shadow">
+    <rect class="card" width="372" height="120"/>
+  <rect x="20" y="20" width="24" height="24" rx="12" class="light-accent"/>
+  <path class="icon" transform="translate(22.5,23)" d="M9.5,3 C13.0899,3 16,5.91015 16,9.5 C16,13.0899 13.0899,16 9.5,16 C5.91015,16 3,13.0899 3,9.5 C3,5.91015 5.91015,3 9.5,3 Z M9.5,5 C7.01472,5 5,7.01472 5,9.5 C5,11.9853 7.01472,14 9.5,14 C11.9853,14 14,11.9853 14,9.5 C14,7.01472 11.9853,5 9.5,5 Z"/>
+    <text x="60" y="37" class="text" font-weight="600">NFC-pass</text>
+    <text x="24" y="72" class="caption">Поднесите телефон к считывателю.</text>
+    <text x="24" y="90" class="caption">Билет действует 60 c</text>
+  <rect class="cta" x="240" y="68" width="112" height="36"/>
+  <text x="295.5" y="90" class="cta-text" text-anchor="middle">Активировать</text>
+  </g>
+
+  <!-- Biometrics -->
+  <g transform="translate(24,438)" class="shadow">
+    <rect class="card" width="372" height="120"/>
+  <rect x="20" y="20" width="24" height="24" rx="12" class="light-accent"/>
+  <path class="icon" transform="translate(22.5,20)" d="M10,2 C12.7614,2 15,4.23858 15,7 C15,8.79272 14.0865,10.3744 12.7075,11.3561 C15.5649,12.2789 17,13.8616 17,16.5 L17,22 L3,22 L3,16.5 C3,13.8616 4.43512,12.2789 7.29246,11.3561 C5.91351,10.3744 5,8.79272 5,7 C5,4.23858 7.23858,2 10,2 Z"/>
+    <text x="60" y="37" class="text" font-weight="600">Биометрия (опционально)</text>
+    <text x="24" y="74" class="caption">Лицо/ладонь для ускоренного прохода.</text>
+    <text x="24" y="92" class="caption">Доступ по согласию и после KYC.</text>
+  <rect class="switch-track" x="268" y="64" width="88" height="28"/>
+  <circle class="switch-thumb" cx="340" cy="78" r="12"/>
+  </g>
+
+  <!-- Navigation -->
+  <g transform="translate(24,574)" class="shadow">
+    <rect class="card" width="372" height="150"/>
+  <rect x="20" y="20" width="24" height="24" rx="12" class="light-accent"/>
+  <path class="icon" transform="translate(20,22)" d="M12,2 C15.3137,2 18,4.68629 18,8 C18,12.5 12,19 12,19 C12,19 6,12.5 6,8 C6,4.68629 8.68629,2 12,2 Z M12,6 C10.8954,6 10,6.89543 10,8 C10,9.10457 10.8954,10 12,10 C13.1046,10 14,9.10457 14,8 C14,6.89543 13.1046,6 12,6 Z"/>
+    <text x="60" y="37" class="text" font-weight="600">Навигация до входа №3</text>
+    <text x="24" y="72" class="caption">ETA 4 мин · Уровень загрузки: умеренный</text>
+    <text x="24" y="90" class="caption">Обновляется автоматически</text>
+  <rect class="cta" x="230" y="98" width="124" height="38"/>
+  <text x="292" y="122" class="cta-text" text-anchor="middle">Открыть карту</text>
+  </g>
+
+  <!-- Tips -->
+  <g transform="translate(24,742)" class="shadow">
+    <rect class="card" width="372" height="110"/>
+  <rect x="20" y="20" width="24" height="24" rx="12" class="light-accent"/>
+  <path class="icon" transform="translate(20,20)" d="M12,2 C17.5228,2 22,6.47715 22,12 C22,17.5228 17.5228,22 12,22 C6.47715,22 2,17.5228 2,12 C2,6.47715 6.47715,2 12,2 Z M12,7 C11.4477,7 11,7.44772 11,8 L11,12 C11,12.5523 11.4477,13 12,13 C12.5523,13 13,12.5523 13,12 L13,8 C13,7.44772 12.5523,7 12,7 Z M12,14 C11.4477,14 11,14.4477 11,15 C11,15.5523 11.4477,16 12,16 C12.5523,16 13,15.5523 13,15 C13,14.4477 12.5523,14 12,14 Z"/>
+    <text x="60" y="37" class="text" font-weight="600">Подсказки</text>
+  <text x="24" y="68" class="caption">• Служба техподдержки +7 (912) 54-35-77</text>
+  <text x="24" y="90" class="caption">• При отказе используйте стойку помощи возле входа</text>
+  </g>
+
+  <!-- Offline warning sample -->
+  <g transform="translate(48,672) scale(0.8)">
+    <rect class="danger" width="240" height="48" filter="drop-shadow(0px 2px 4px rgba(194,40,40,0.15))"/>
+    <circle cx="36" cy="24" r="10" fill="#ef4444"/>
+    <path d="M36,18 L40,24 L32,24 Z" fill="#fff"/>
+    <text x="56" y="24" class="text" font-size="13px" fill="#c62828">Нет сети — QR перейдёт</text>
+    <text x="56" y="42" class="text" font-size="13px" fill="#c62828">в оффлайн-режим</text>
+  </g>
+</svg>

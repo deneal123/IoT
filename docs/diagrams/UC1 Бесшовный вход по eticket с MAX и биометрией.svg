@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Smart Turnstile Flow Diagram (Unified Style v1.0)
+  Palette & tokens (keep consistent across project):
+  - Ink / Text Dark: #1e293b / #334155 / #475569
+  - Primary (Blue):  base #3b82f6  border #1e40af  accent #0284c7
+  - Success (Green): base #16a34a  bg #dcfce7
+  - Warning (Amber): base #f59e0b  bg #fef3c7
+  - Error (Red):     base #dc2626  bg #fee2e2
+  - Surface (Neutral): bg #f8fafc  side #e0f2fe
+  Typography: "Segoe UI", Arial, sans-serif
+  Corners: 12px primary, 8px side
+  Shadows: soft, directional (2px/4px), colored per intent
+  Motion: subtle, disable when prefers-reduced-motion
+-->
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="100%" height="auto" viewBox="0 0 1200 920"
+     role="img" aria-labelledby="title desc">
+  <title id="title">Диаграмма потока доступа через умный турникет</title>
+  <desc id="desc">Пошаговая схема: e-ticket в MAX, отображение в мобильном приложении, BLE-маяки, турникет, валидация BMS, проверка ЕПГУ и исходы: разрешён / отказ.</desc>
+
+  <!-- Definitions -->
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="panelGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#f8fafc" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="sideGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f0f9ff"/>
+      <stop offset="100%" stop-color="#e0f2fe"/>
+    </linearGradient>
+    <linearGradient id="successGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ecfdf5"/>
+      <stop offset="100%" stop-color="#dcfce7"/>
+    </linearGradient>
+    <linearGradient id="errorGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fef2f2"/>
+      <stop offset="100%" stop-color="#fee2e2"/>
+    </linearGradient>
+    <linearGradient id="warnGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff7ed"/>
+      <stop offset="100%" stop-color="#fef3c7"/>
+    </linearGradient>
+
+    <!-- Shadows -->
+    <filter id="shadow-neutral" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#334155" flood-opacity="0.18"/>
+    </filter>
+    <filter id="shadow-warm" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#f59e0b" flood-opacity="0.25"/>
+    </filter>
+    <filter id="shadow-success" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#16a34a" flood-opacity="0.18"/>
+    </filter>
+    <filter id="shadow-error" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#dc2626" flood-opacity="0.18"/>
+    </filter>
+    <filter id="shadow-side" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0284c7" flood-opacity="0.18"/>
+    </filter>
+
+    <!-- Arrow markers -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#475569"/>
+    </marker>
+    <marker id="green-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#16a34a"/>
+    </marker>
+    <marker id="red-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#dc2626"/>
+    </marker>
+    <marker id="blue-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0284c7"/>
+    </marker>
+
+    <!-- Number badge symbol -->
+    <symbol id="badge" viewBox="0 0 30 30">
+      <defs>
+        <radialGradient id="badgeGrad" cx="50%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#60a5fa"/>
+          <stop offset="100%" stop-color="#3b82f6"/>
+        </radialGradient>
+      </defs>
+      <circle cx="15" cy="15" r="14" fill="url(#badgeGrad)" stroke="#1e40af" stroke-width="2"/>
+    </symbol>
+  </defs>
+
+  <!-- Styles -->
+  <style>
+    /* Typography */
+    .title       { font: 700 20px "Segoe UI", Arial, sans-serif; fill: #1e293b; text-anchor: middle; }
+    .process-t   { font: 600 15px "Segoe UI", Arial, sans-serif; fill: #334155; }
+    .detail-t    { font: 12px "Segoe UI", Arial, sans-serif;  fill: #64748b; }
+    .decision-t  { font: 600 14px "Segoe UI", Arial, sans-serif; fill: #92400e; text-anchor: middle; }
+    .success-t   { font: 600 15px "Segoe UI", Arial, sans-serif; fill: #166534; }
+    .error-t     { font: 600 15px "Segoe UI", Arial, sans-serif; fill: #991b1b; }
+    .side-t      { font: 14px "Segoe UI", Arial, sans-serif;  fill: #0c4a6e; }
+    .flow-label  { font: 12px "Segoe UI", Arial, sans-serif;  fill: #475569; text-anchor: middle; }
+    .yes-label   { font: 700 12px "Segoe UI", Arial, sans-serif; fill: #16a34a; }
+    .no-label    { font: 700 12px "Segoe UI", Arial, sans-serif; fill: #dc2626; }
+
+    /* Cards */
+    .card { transition: transform 200ms ease, filter 200ms ease; }
+    .card:hover { transform: translateY(-2px); }
+    .process-box { fill: url(#panelGradient); stroke: #334155; stroke-width: 2; rx: 12; ry: 12; }
+    .decision-diamond { fill: url(#warnGradient); stroke: #f59e0b; stroke-width: 2; }
+    .success-box { fill: url(#successGradient); stroke: #16a34a; stroke-width: 2; rx: 12; ry: 12; }
+    .error-box { fill: url(#errorGradient); stroke: #dc2626; stroke-width: 2; rx: 12; ry: 12; }
+    .side-box { fill: url(#sideGradient); stroke: #0284c7; stroke-width: 2; rx: 8; ry: 8; stroke-dasharray: 5,5; }
+
+    /* Arrows */
+    .arrow { stroke: #475569; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    .success-arrow { stroke: #16a34a; stroke-width: 2; fill: none; marker-end: url(#green-arrow); }
+    .error-arrow { stroke: #dc2626; stroke-width: 2; fill: none; marker-end: url(#red-arrow); }
+    .side-arrow { stroke: #0284c7; stroke-width: 2; fill: none; stroke-dasharray: 5,5; marker-end: url(#blue-arrow); }
+
+    /* Motion */
+    .flow-anim { stroke-dasharray: 6 8; animation: flow 2.8s linear infinite; }
+    .flow-anim.fast { animation-duration: 1.8s; }
+    .pulse { transform-box: fill-box; animation: pulse 2.2s ease-in-out infinite; transform-origin: 50% 50%; }
+    .pop-in { animation: pop 480ms cubic-bezier(.2,.8,.2,1) both; }
+    .blink { animation: blink 1.6s step-end infinite; }
+
+    @keyframes flow {
+      to { stroke-dashoffset: -28; }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.35; transform: scale(1); }
+      50%      { opacity: 0.9;  transform: scale(1.2); }
+    }
+    @keyframes pop {
+      0% { opacity: 0; transform: translateY(6px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes blink {
+      0% { opacity: 0; }
+      50% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .flow-anim, .pulse, .pop-in, .blink { animation: none !important; }
+    }
+  </style>
+
+  <!-- Main Title (optional, centered above first row) -->
+  <!-- <text x="600" y="38" class="title">Поток прохода через турникет</text> -->
+
+  <!-- Row 1: MAX System -->
+  <g id="max-system" class="card pop-in" aria-label="MAX e-ticket">
+    <rect class="process-box" x="450" y="70" width="300" height="70" filter="url(#shadow-neutral)"/>
+    <text x="470" y="95" class="process-t">MAX: e-ticket (deep link / QR)</text>
+    <text x="470" y="110" class="detail-t">Отправка билета и уведомлений пользователю</text>
+    <text x="470" y="125" class="detail-t">Интеграция с системой продаж билетов</text>
+  </g>
+
+  <!-- Row 2: Mobile App -->
+  <g id="mobile-app" class="card pop-in" aria-label="Мобильное приложение e-ticket">
+    <rect class="process-box" x="450" y="180" width="300" height="70" filter="url(#shadow-neutral)"/>
+    <text x="470" y="205" class="process-t">Mobile App: отображение e-ticket</text>
+    <text x="470" y="220" class="detail-t">Динамический QR, NFC-pass, оффлайн-токен</text>
+    <text x="470" y="235" class="detail-t">Автооткрытие при приближении к входу</text>
+  </g>
+
+  <!-- Row 3: BLE Beacons -->
+  <g id="ble-beacons" class="card pop-in" aria-label="BLE маяки у входа">
+    <rect class="process-box" x="450" y="290" width="300" height="70" filter="url(#shadow-neutral)"/>
+    <text x="470" y="315" class="process-t">BLE-маяки у входа</text>
+    <text x="470" y="330" class="detail-t">Триггер автооткрытия экрана билета</text>
+    <text x="465" y="345" class="detail-t">Определение близости к турникету</text>
+
+    <!-- Pulsing beacons (visual hint) -->
+    <circle cx="720" cy="325" r="6" fill="#3b82f6" opacity="0.7" class="pulse"/>
+    <circle cx="705" cy="325" r="3.5" fill="#60a5fa" opacity="0.7" class="pulse" style="animation-delay: .4s"/>
+    <circle cx="735" cy="325" r="3.5" fill="#60a5fa" opacity="0.7" class="pulse" style="animation-delay: .8s"/>
+  </g>
+
+  <!-- Row 4: Turnstile -->
+  <g id="turnstile" class="card pop-in" aria-label="Турникет: сканирование и антифрод">
+    <rect class="process-box" x="450" y="400" width="300" height="70" filter="url(#shadow-neutral)"/>
+    <text x="470" y="425" class="process-t">Турникет: скан QR / NFC / биометрия</text>
+    <text x="470" y="440" class="detail-t">Анти-фрод проверка, rate limiting</text>
+    <text x="470" y="455" class="detail-t">Множественные методы аутентификации</text>
+  </g>
+
+  <!-- Row 5: BMS Validation -->
+  <g id="bms-validation" class="card pop-in" aria-label="BMS валидация">
+    <rect class="process-box" x="450" y="510" width="300" height="70" filter="url(#shadow-neutral)"/>
+    <text x="470" y="535" class="process-t">BMS: validate(ticketId/biometry)</text>
+    <text x="470" y="550" class="detail-t">Проверка статуса, времени действия, дублей</text>
+    <text x="470" y="565" class="detail-t">Валидация в реальном времени</text>
+  </g>
+
+  <!-- Decision: ЕПГУ -->
+  <g id="decision" class="card pop-in" aria-label="Проверка ЕПГУ: возраст и идентификатор">
+    <polygon class="decision-diamond" points="600,620 700,670 600,720 500,670" filter="url(#shadow-warm)"/>
+    <text x="600" y="665" class="decision-t">ЕПГУ проверка</text>
+    <text x="600" y="680" class="decision-t">возраст/ID?</text>
+  </g>
+
+  <!-- Success -->
+  <g id="success" class="card pop-in" aria-label="Проход разрешён">
+    <rect class="success-box" x="350" y="760" width="300" height="70" filter="url(#shadow-success)"/>
+    <text x="365" y="785" class="success-t">✓ Турникет: проход РАЗРЕШЁН</text>
+    <text x="365" y="800" class="detail-t">Логирование события входа</text>
+    <text x="365" y="815" class="detail-t">Обновление счётчика посетителей</text>
+  </g>
+
+  <!-- Error -->
+  <g id="error" class="card pop-in" aria-label="Отказ в доступе">
+    <rect class="error-box" x="750" y="760" width="300" height="70" filter="url(#shadow-error)"/>
+    <text x="765" y="785" class="error-t">✗ Отказ в доступе</text>
+    <text x="765" y="800" class="detail-t">Маршрут к стойке помощи</text>
+    <text x="765" y="815" class="detail-t">Регистрация инцидента в системе</text>
+  </g>
+
+  <!-- Side Camera System -->
+  <g id="camera" class="card pop-in" aria-label="Камера ONVIF">
+    <rect class="side-box" x="850" y="500" width="280" height="70" filter="url(#shadow-side)"/>
+    <text x="865" y="525" class="side-t">📹 Камера (ONVIF)</text>
+    <text x="865" y="540" class="detail-t">Snapshot при проходе</text>
+    <text x="865" y="555" class="detail-t">Face-log с привязкой к событию</text>
+    <!-- Camera indicator -->
+    <circle cx="1110" cy="515" r="4" fill="#16a34a" class="blink"/>
+  </g>
+
+  <!-- Main vertical flow arrows (animated) -->
+  <line class="arrow flow-anim" x1="600" y1="140" x2="600" y2="180"/>
+  <line class="arrow flow-anim" x1="600" y1="250" x2="600" y2="290"/>
+  <line class="arrow flow-anim" x1="600" y1="360" x2="600" y2="400"/>
+  <line class="arrow flow-anim" x1="600" y1="470" x2="600" y2="510"/>
+  <line class="arrow flow-anim" x1="600" y1="580" x2="600" y2="620"/>
+
+  <!-- Decision branch arrows -->
+  <line class="success-arrow flow-anim fast" x1="550" y1="720" x2="500" y2="760"/>
+  <line class="error-arrow flow-anim fast" x1="650" y1="720" x2="900" y2="760"/>
+
+  <!-- Side arrow to camera -->
+  <line class="side-arrow flow-anim" x1="750" y1="535" x2="850" y2="535"/>
+
+  <!-- Labels for decision branches -->
+  <text x="475" y="750" class="yes-label">ДА</text>
+  <text x="775" y="730" class="no-label">НЕТ</text>
+
+  <!-- Flow step numbers (badges) -->
+  <g class="pop-in" style="animation-delay: .05s">
+    <use href="#badge" x="435" y="82" width="30" height="30"/>
+    <text x="450" y="102" style="font: 700 12px Arial; fill: #fff; text-anchor: middle;">1</text>
+  </g>
+  <g class="pop-in" style="animation-delay: .12s">
+    <use href="#badge" x="435" y="192" width="30" height="30"/>
+    <text x="450" y="212" style="font: 700 12px Arial; fill: #fff; text-anchor: middle;">2</text>
+  </g>
+  <g class="pop-in" style="animation-delay: .20s">
+    <use href="#badge" x="435" y="302" width="30" height="30"/>
+    <text x="450" y="322" style="font: 700 12px Arial; fill: #fff; text-anchor: middle;">3</text>
+  </g>
+  <g class="pop-in" style="animation-delay: .28s">
+    <use href="#badge" x="435" y="414" width="30" height="30"/>
+    <text x="450" y="434" style="font: 700 12px Arial; fill: #fff; text-anchor: middle;">4</text>
+  </g>
+  <g class="pop-in" style="animation-delay: .36s">
+    <use href="#badge" x="435" y="526" width="30" height="30"/>
+    <text x="450" y="546" style="font: 700 12px Arial; fill: #fff; text-anchor: middle;">5</text>
+  </g>
+
+  <!-- Footer notes -->
+  <text x="400" y="870" class="detail-t">
+    ⚠️ Примечание: биометрическая аутентификация используется только при согласии пользователя.
+  </text>
+  <text x="400" y="888" class="detail-t">
+    При отказе от биометрии применяется альтернативная проверка через QR/NFC + документы.
+  </text>
+</svg>

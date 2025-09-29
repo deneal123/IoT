@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Seat Service Order Flow (Unified Style v1.0)
+  Palette & tokens (consistent across project):
+  - Ink / Text Dark: #1e293b / #334155 / #475569
+  - Primary (Blue):  base #3b82f6  border #1e40af  accent #0284c7
+  - Success (Green): base #16a34a  bg #dcfce7
+  - Warning (Amber): base #f59e0b  bg #fef3c7
+  - Error (Red):     base #dc2626  bg #fee2e2
+  - Surface (Neutral): bg #f8fafc  side #e0f2fe
+  Typography: "Segoe UI", Arial, sans-serif
+  Corners: 12px primary, 8px side
+  Shadows: soft, directional (2px/4px), colored per intent
+  Motion: subtle, disable when prefers-reduced-motion
+-->
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="100%" height="auto" viewBox="0 0 1200 1050"
+     role="img" aria-labelledby="title desc">
+  <title id="title">Диаграмма заказа еды к месту (Seat Service)</title>
+  <desc id="desc">Поток: старт → выбор места → загрузка меню → оформление заказа → оплата (да/нет) → создание заказа в POS → логистика → параллельные процессы кухни, трекинга, доставки и ETA → выдача заказа → конец. Справочная панель техстека и обратные переходы при ошибке оплаты.</desc>
+
+  <!-- Definitions -->
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="panelGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#f8fafc" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="sideGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f0f9ff"/>
+      <stop offset="100%" stop-color="#e0f2fe"/>
+    </linearGradient>
+    <linearGradient id="successGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ecfdf5"/>
+      <stop offset="100%" stop-color="#dcfce7"/>
+    </linearGradient>
+    <linearGradient id="errorGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fef2f2"/>
+      <stop offset="100%" stop-color="#fee2e2"/>
+    </linearGradient>
+    <linearGradient id="warnGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff7ed"/>
+      <stop offset="100%" stop-color="#fef3c7"/>
+    </linearGradient>
+
+    <!-- Shadows -->
+    <filter id="shadow-neutral" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#334155" flood-opacity="0.18"/>
+    </filter>
+    <filter id="shadow-warm" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#f59e0b" flood-opacity="0.25"/>
+    </filter>
+    <filter id="shadow-success" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#16a34a" flood-opacity="0.18"/>
+    </filter>
+    <filter id="shadow-error" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#dc2626" flood-opacity="0.18"/>
+    </filter>
+    <filter id="shadow-side" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0284c7" flood-opacity="0.18"/>
+    </filter>
+
+    <!-- Arrow markers -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#475569"/>
+    </marker>
+    <marker id="green-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#16a34a"/>
+    </marker>
+    <marker id="red-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#dc2626"/>
+    </marker>
+    <marker id="blue-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0284c7"/>
+    </marker>
+
+    <!-- Number badge symbol -->
+    <symbol id="badge" viewBox="0 0 30 30">
+      <defs>
+        <radialGradient id="badgeGrad" cx="50%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#60a5fa"/>
+          <stop offset="100%" stop-color="#3b82f6"/>
+        </radialGradient>
+      </defs>
+      <circle cx="15" cy="15" r="14" fill="url(#badgeGrad)" stroke="#1e40af" stroke-width="2"/>
+    </symbol>
+  </defs>
+
+  <!-- Styles -->
+  <style>
+    /* Typography */
+    .title       { font: 700 22px "Segoe UI", Arial, sans-serif; fill: #1e293b; text-anchor: middle; }
+    .process-t   { font: 600 15px "Segoe UI", Arial, sans-serif; fill: #334155; }
+    .detail-t    { font: 12px "Segoe UI", Arial, sans-serif;  fill: #64748b; }
+    .decision-t  { font: 600 14px "Segoe UI", Arial, sans-serif; fill: #92400e; text-anchor: middle; }
+    .success-t   { font: 600 15px "Segoe UI", Arial, sans-serif; fill: #166534; }
+    .error-t     { font: 600 15px "Segoe UI", Arial, sans-serif; fill: #991b1b; }
+    .side-t      { font: 14px "Segoe UI", Arial, sans-serif;  fill: #0c4a6e; }
+    .flow-label  { font: 12px "Segoe UI", Arial, sans-serif;  fill: #475569; text-anchor: middle; }
+    .yes-label   { font: 700 12px "Segoe UI", Arial, sans-serif; fill: #16a34a; }
+    .no-label    { font: 700 12px "Segoe UI", Arial, sans-serif; fill: #dc2626; }
+
+    /* Cards */
+    .card { transition: transform 200ms ease, filter 200ms ease; }
+    .card:hover { transform: translateY(-2px); }
+    .process-box { fill: url(#panelGradient); stroke: #334155; stroke-width: 2; rx: 12; ry: 12; }
+    .side-box { fill: url(#sideGradient); stroke: #0284c7; stroke-width: 2; rx: 8; ry: 8; stroke-dasharray: 5,5; }
+    .decision-diamond { fill: url(#warnGradient); stroke: #f59e0b; stroke-width: 2; }
+    .success-box { fill: url(#successGradient); stroke: #16a34a; stroke-width: 2; rx: 12; ry: 12; }
+    .error-box { fill: url(#errorGradient); stroke: #dc2626; stroke-width: 2; rx: 12; ry: 12; }
+    .terminator { fill: url(#successGradient); stroke: #16a34a; stroke-width: 2; }
+    .group-box { fill: url(#panelGradient); stroke: #475569; stroke-width: 2; rx: 12; ry: 12; stroke-dasharray: 8 6; }
+
+    /* Arrows */
+    .arrow { stroke: #475569; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    .success-arrow { stroke: #16a34a; stroke-width: 2; fill: none; marker-end: url(#green-arrow); }
+    .error-arrow { stroke: #dc2626; stroke-width: 2; fill: none; marker-end: url(#red-arrow); }
+    .side-arrow { stroke: #0284c7; stroke-width: 2; fill: none; stroke-dasharray: 5,5; marker-end: url(#blue-arrow); }
+
+    /* Motion */
+    .flow-anim { stroke-dasharray: 6 8; animation: flow 2.8s linear infinite; }
+    .flow-anim.fast { animation-duration: 1.8s; }
+    .pulse { transform-box: fill-box; animation: pulse 2.2s ease-in-out infinite; transform-origin: 50% 50%; }
+    .pop-in { animation: pop 480ms cubic-bezier(.2,.8,.2,1) both; }
+    .blink { animation: blink 1.6s step-end infinite; }
+
+    @keyframes flow {
+      to { stroke-dashoffset: -28; }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.35; transform: scale(1); }
+      50%      { opacity: 0.9;  transform: scale(1.2); }
+    }
+    @keyframes pop {
+      0% { opacity: 0; transform: translateY(6px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes blink {
+      0% { opacity: 0; }
+      50% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .flow-anim, .pulse, .pop-in, .blink { animation: none !important; }
+    }
+  </style>
+
+  <!-- START -->
+  <g id="start" class="card pop-in" aria-label="Старт">
+    <ellipse class="terminator" cx="200" cy="100" rx="60" ry="25" filter="url(#shadow-neutral)"/>
+    <text x="200" y="105" style="font:700 14px 'Segoe UI', Arial, sans-serif; fill:#166534;" text-anchor="middle">СТАРТ</text>
+  </g>
+
+  <!-- Step 1: Выбор места -->
+  <g id="step-1" class="card pop-in" style="animation-delay:.04s" aria-label="Выбор места">
+    <rect class="process-box" x="50" y="150" width="320" height="90" filter="url(#shadow-neutral)"/>
+    <text x="70" y="178" class="process-t">1. Выбор места</text>
+    <text x="70" y="198" class="detail-t">• Сканирование QR кресла</text>
+    <text x="70" y="216" class="detail-t">• Выбор на карте стадиона (сектор/ряд/место)</text>
+    <circle cx="350" cy="165" r="4" fill="#3b82f6" class="pulse"/>
+  </g>
+
+  <!-- Step 2: Загрузка меню -->
+  <g id="step-2" class="card pop-in" style="animation-delay:.08s" aria-label="Загрузка меню">
+    <rect class="process-box" x="50" y="265" width="320" height="90" filter="url(#shadow-neutral)"/>
+    <text x="70" y="293" class="process-t">2. Загрузка меню</text>
+    <text x="70" y="313" class="detail-t">• Получение из POS API (актуальные цены)</text>
+    <text x="70" y="331" class="detail-t">• Доступность блюд в реальном времени</text>
+    <circle cx="350" cy="280" r="4" fill="#16a34a" class="blink"/>
+  </g>
+
+  <!-- Step 3: Оформление заказа -->
+  <g id="step-3" class="card pop-in" style="animation-delay:.12s" aria-label="Оформление заказа">
+    <rect class="process-box" x="50" y="380" width="320" height="90" filter="url(#shadow-neutral)"/>
+    <text x="70" y="408" class="process-t">3. Оформление заказа</text>
+    <text x="70" y="428" class="detail-t">• Добавление в корзину; промокоды</text>
+    <text x="70" y="446" class="detail-t">• Расчёт итоговой суммы</text>
+  </g>
+
+  <!-- Decision: Оплата успешна? -->
+  <g id="payment-decision" class="card pop-in" style="animation-delay:.16s" aria-label="Оплата успешна?">
+    <polygon class="decision-diamond" points="200,500 270,540 200,580 130,540" filter="url(#shadow-warm)"/>
+    <text x="200" y="534" class="decision-t">Оплата</text>
+    <text x="200" y="552" class="decision-t">успешна?</text>
+  </g>
+
+  <!-- Error path: Ошибка оплаты -->
+  <g id="payment-error" class="card pop-in" style="animation-delay:.18s" aria-label="Ошибка оплаты">
+    <rect class="error-box" x="500" y="500" width="300" height="90" filter="url(#shadow-error)"/>
+    <text x="520" y="527" class="error-t">Ошибка оплаты</text>
+    <text x="520" y="547" class="detail-t">• Повтор попытки; смена способа оплаты</text>
+    <text x="520" y="565" class="detail-t">• WAF и rate limiting на платёжных операциях</text>
+  </g>
+
+  <!-- Step 4: Создание заказа в POS -->
+  <g id="step-4" class="card pop-in" style="animation-delay:.20s" aria-label="Создание заказа в POS">
+    <rect class="process-box" x="50" y="610" width="320" height="90" filter="url(#shadow-neutral)"/>
+    <text x="70" y="638" class="process-t">4. Создание заказа</text>
+    <text x="70" y="658" class="detail-t">• Передача в POS; генерация ID заказа</text>
+    <text x="70" y="676" class="detail-t">• Установка SLA времени</text>
+  </g>
+
+  <!-- Step 5: Логистика -->
+  <g id="step-5" class="card pop-in" style="animation-delay:.22s" aria-label="Логистика">
+    <rect class="process-box" x="50" y="725" width="320" height="90" filter="url(#shadow-neutral)"/>
+    <text x="70" y="753" class="process-t">5. Логистика</text>
+    <text x="70" y="773" class="detail-t">• Назначение курьера; оптимизация маршрута</text>
+    <text x="70" y="791" class="detail-t">• CEP-система управления доставкой</text>
+  </g>
+
+  <!-- Parallel processes group -->
+  <g id="parallel" class="card pop-in" style="animation-delay:.24s" aria-label="Параллельные процессы">
+    <rect class="group-box" x="500" y="610" width="420" height="210" filter="url(#shadow-neutral)"/>
+    <text x="585" y="635" class="flow-label">Параллельные процессы</text>
+
+    <!-- Kitchen -->
+    <rect class="process-box" x="520" y="650" width="180" height="60" filter="url(#shadow-neutral)"/>
+    <text x="540" y="672" class="process-t">Кухня</text>
+    <text x="540" y="690" class="detail-t">• Приготовление</text>
+    <circle cx="680" cy="665" r="4" fill="#3b82f6" class="pulse"/>
+
+    <!-- Tracking -->
+    <rect class="process-box" x="720" y="650" width="180" height="60" filter="url(#shadow-neutral)"/>
+    <text x="740" y="672" class="process-t">Трекинг</text>
+    <text x="740" y="690" class="detail-t">• Обновление статуса</text>
+    <circle cx="880" cy="665" r="4" fill="#16a34a" class="blink"/>
+
+    <!-- Delivery -->
+    <rect class="process-box" x="520" y="730" width="180" height="60" filter="url(#shadow-neutral)"/>
+    <text x="540" y="752" class="process-t">Доставка</text>
+    <text x="540" y="770" class="detail-t">• В пути к месту</text>
+
+    <!-- ETA -->
+    <rect class="process-box" x="720" y="730" width="180" height="60" filter="url(#shadow-neutral)"/>
+    <text x="740" y="752" class="process-t">ETA расчёт</text>
+    <text x="740" y="770" class="detail-t">• Время прибытия</text>
+  </g>
+
+  <!-- Step 6: Выдача заказа -->
+  <g id="step-6" class="card pop-in" style="animation-delay:.26s" aria-label="Выдача заказа">
+    <rect class="process-box" x="50" y="840" width="320" height="90" filter="url(#shadow-neutral)"/>
+    <text x="70" y="868" class="process-t">6. Выдача заказа</text>
+    <text x="70" y="888" class="detail-t">• Подтверждение QR; </text>
+    <text x="70" y="908" class="detail-t"> получение клиентом (закрытие транзакции)</text>
+  </g>
+
+  <!-- END -->
+  <g id="end" class="card pop-in" style="animation-delay:.30s" aria-label="Конец">
+    <ellipse class="terminator" cx="200" cy="980" rx="60" ry="25" filter="url(#shadow-neutral)"/>
+    <text x="200" y="985" style="font:700 14px 'Segoe UI', Arial, sans-serif; fill:#166534;" text-anchor="middle">КОНЕЦ</text>
+  </g>
+
+  <!-- Technical stack (side info) -->
+  <g id="tech-stack" class="card pop-in" style="animation-delay:.28s" aria-label="Технический стек">
+    <rect class="side-box" x="560" y="180" width="220" height="170" filter="url(#shadow-side)"/>
+    <text x="570" y="200" class="side-t">Технический стек</text>
+    <text x="570" y="220" class="detail-t">🔗 API: GraphQL + REST</text>
+    <text x="570" y="240" class="detail-t">💾 DB: PostgreSQL + Redis</text>
+    <text x="570" y="260" class="detail-t">🌐 Frontend: React Native</text>
+    <text x="570" y="280" class="detail-t">⚙️ Backend: Node.js, микросервисы</text>
+    <text x="570" y="300" class="detail-t">☁️ Cloud: AWS/Azure</text>
+    <text x="570" y="320" class="detail-t">🔄 Queue: RabbitMQ</text>
+    <text x="570" y="340" class="detail-t">📈 Monitoring: Grafana</text>
+  </g>
+
+  <!-- Main vertical flow (animated arrows) -->
+  <path class="arrow flow-anim" d="M200,125 L200,150"/>
+  <path class="arrow flow-anim" d="M200,240 L200,265"/>
+  <path class="arrow flow-anim" d="M200,355 L200,380"/>
+  <path class="arrow flow-anim" d="M200,470 L200,500"/>
+
+  <!-- Decision branches -->
+  <!-- YES -->
+  <path class="success-arrow flow-anim fast" d="M200,580 L200,610"/>
+  <text x="215" y="595" class="yes-label">ДА</text>
+  <!-- NO -->
+  <path class="error-arrow flow-anim fast" d="M270,540 L500,540"/>
+  <text x="330" y="532" class="no-label">НЕТ</text>
+
+  <!-- Return from error to decision (curved) -->
+  <path class="error-arrow flow-anim" d="M650,500 C640,450 420,470 200,500"/>
+
+  <!-- Downstream arrows -->
+  <path class="arrow flow-anim" d="M200,700 L200,725"/>
+  <path class="arrow flow-anim" d="M200,815 L200,840"/>
+  <path class="arrow flow-anim" d="M200,930 L200,955"/>
+
+  <!-- Link from Логистика to Parallel group -->
+  <path class="side-arrow flow-anim" d="M370,770 L500,680"/>
+
+  <!-- Flow step numbers (badges) -->
+  <g class="pop-in" style="animation-delay:.06s">
+    <use href="#badge" x="35" y="160" width="30" height="30"/><text x="50" y="180" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">1</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.10s">
+    <use href="#badge" x="35" y="275" width="30" height="30"/><text x="50" y="295" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">2</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.14s">
+    <use href="#badge" x="35" y="390" width="30" height="30"/><text x="50" y="410" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">3</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.20s">
+    <use href="#badge" x="35" y="620" width="30" height="30"/><text x="50" y="640" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">4</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.22s">
+    <use href="#badge" x="35" y="735" width="30" height="30"/><text x="50" y="755" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">5</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.28s">
+    <use href="#badge" x="35" y="850" width="30" height="30"/><text x="50" y="870" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">6</text>
+  </g>
+
+  <!-- Legend -->
+  <g id="legend" class="pop-in" style="animation-delay:.32s" aria-label="Легенда">
+    <text x="460" y="875" class="detail-t">Легенда:</text>
+    <rect class="process-box" x="460" y="885" width="22" height="14" rx="3" ry="3" filter="url(#shadow-neutral)"/>
+    <text x="488" y="896" class="detail-t">Внутренний процесс</text>
+    <rect class="side-box" x="615" y="885" width="22" height="14" rx="3" ry="3" filter="url(#shadow-side)"/>
+    <text x="645" y="896" class="detail-t">Внешняя/боковая система</text>
+    <polygon class="decision-diamond" points="820,885 836,892 820,899 804,892" filter="url(#shadow-warm)"/>
+    <text x="845" y="896" class="detail-t">Точка решения</text>
+  </g>
+</svg>

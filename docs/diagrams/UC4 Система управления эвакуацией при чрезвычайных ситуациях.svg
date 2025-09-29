@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Emergency Evacuation Orchestration (Unified Style v1.0)
+  Palette & tokens (consistent across project):
+  - Ink / Text Dark: #1e293b / #334155 / #475569
+  - Primary (Blue):  base #3b82f6  border #1e40af  accent #0284c7
+  - Success (Green): base #16a34a  bg #dcfce7
+  - Warning (Amber): base #f59e0b  bg #fef3c7
+  - Error (Red):     base #dc2626  bg #fee2e2
+  - Surface (Neutral): bg #f8fafc  side #e0f2fe
+  Typography: "Segoe UI", Arial, sans-serif
+  Corners: 12px primary, 8px side
+  Shadows: soft, directional (2px/4px), colored per intent
+  Motion: subtle, disable when prefers-reduced-motion
+-->
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="100%" height="auto" viewBox="0 0 1200 900"
+     role="img" aria-labelledby="title desc">
+  <title id="title">Диаграмма оркестрации эвакуации</title>
+  <desc id="desc">Триггеры угроз (ОПС, видеоаналитика, тревожная кнопка, мобильный сигнал) → BMS центр управления → исполнительные системы (СОУЭ, СКУД, освещение, пожаротушение, табло, мобильное приложение, диспетчерская, видеоконтроль) → мониторинг и восстановление → завершение эвакуации. Анимация потока и индикаторы состояния.</desc>
+
+  <!-- Definitions -->
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="panelGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#f8fafc" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="sideGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f0f9ff"/>
+      <stop offset="100%" stop-color="#e0f2fe"/>
+    </linearGradient>
+    <linearGradient id="successGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ecfdf5"/>
+      <stop offset="100%" stop-color="#dcfce7"/>
+    </linearGradient>
+    <linearGradient id="warnGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff7ed"/>
+      <stop offset="100%" stop-color="#fef3c7"/>
+    </linearGradient>
+
+    <!-- Shadows -->
+    <filter id="shadow-neutral" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#334155" flood-opacity="0.18"/>
+    </filter>
+    <filter id="shadow-warm" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#f59e0b" flood-opacity="0.25"/>
+    </filter>
+    <filter id="shadow-success" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#16a34a" flood-opacity="0.18"/>
+    </filter>
+    <filter id="shadow-side" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0284c7" flood-opacity="0.18"/>
+    </filter>
+
+    <!-- Arrow markers -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#475569"/>
+    </marker>
+    <marker id="green-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#16a34a"/>
+    </marker>
+    <marker id="amber-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#f59e0b"/>
+    </marker>
+    <marker id="blue-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0284c7"/>
+    </marker>
+
+    <!-- Number badge -->
+    <symbol id="badge" viewBox="0 0 30 30">
+      <defs>
+        <radialGradient id="badgeGrad" cx="50%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#60a5fa"/>
+          <stop offset="100%" stop-color="#3b82f6"/>
+        </radialGradient>
+      </defs>
+      <circle cx="15" cy="15" r="14" fill="url(#badgeGrad)" stroke="#1e40af" stroke-width="2"/>
+    </symbol>
+  </defs>
+
+  <!-- Styles -->
+  <style>
+    /* Typography */
+    .subtitle   { font: 700 16px "Segoe UI", Arial, sans-serif; fill: #334155; }
+    .process-t  { font: 600 15px "Segoe UI", Arial, sans-serif; fill: #334155; }
+    .detail-t   { font: 12px "Segoe UI", Arial, sans-serif;  fill: #64748b; }
+    .bms-t      { font: 700 16px "Segoe UI", Arial, sans-serif; fill: #1e40af; }
+    .system-t   { font: 600 14px "Segoe UI", Arial, sans-serif; fill: #0c4a6e; }
+    .flow-label { font: 12px "Segoe UI", Arial, sans-serif;  fill: #475569; text-anchor: middle; }
+
+    /* Cards */
+    .card { transition: transform 200ms ease, filter 200ms ease; }
+    .card:hover { transform: translateY(-2px); }
+    .process-box { fill: url(#panelGradient); stroke: #334155; stroke-width: 2; rx: 12; ry: 12; }
+    .side-box { fill: url(#sideGradient); stroke: #0284c7; stroke-width: 2; rx: 8; ry: 8; stroke-dasharray: 5,5; }
+    .trigger-box { fill: url(#warnGradient); stroke: #f59e0b; stroke-width: 2; rx: 12; ry: 12; }
+    .bms-box { fill: url(#panelGradient); stroke: #1e40af; stroke-width: 2.5; rx: 12; ry: 12; }
+    .success-box { fill: url(#successGradient); stroke: #16a34a; stroke-width: 2; rx: 12; ry: 12; }
+
+    /* Arrows */
+    .arrow { stroke: #475569; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    .success-arrow { stroke: #16a34a; stroke-width: 2; fill: none; marker-end: url(#green-arrow); }
+    .warn-arrow { stroke: #f59e0b; stroke-width: 2; fill: none; marker-end: url(#amber-arrow); }
+    .side-arrow { stroke: #0284c7; stroke-width: 2; fill: none; stroke-dasharray: 5,5; marker-end: url(#blue-arrow); }
+
+    /* Motion */
+    .flow-anim { stroke-dasharray: 6 8; animation: flow 2.8s linear infinite; }
+    .flow-anim.fast { animation-duration: 1.8s; }
+    .pulse { transform-box: fill-box; animation: pulse 2.2s ease-in-out infinite; transform-origin: 50% 50%; }
+    .pop-in { animation: pop 480ms cubic-bezier(.2,.8,.2,1) both; }
+    .blink { animation: blink 1.6s step-end infinite; }
+
+    @keyframes flow {
+      to { stroke-dashoffset: -28; }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.35; transform: scale(1); }
+      50%      { opacity: 0.9;  transform: scale(1.2); }
+    }
+    @keyframes pop {
+      0% { opacity: 0; transform: translateY(6px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes blink {
+      0% { opacity: 0; }
+      50% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .flow-anim, .pulse, .pop-in, .blink { animation: none !important; }
+    }
+  </style>
+
+  <!-- Section: Детекторы и триггеры -->
+  <text x="40" y="82" class="subtitle">Детекторы и триггеры</text>
+  <line x1="40" y1="86" x2="220" y2="86" stroke="#94a3b8" stroke-width="1"/>
+
+  <g id="triggers" class="pop-in" aria-label="Триггеры угроз">
+    <g transform="translate(80,100)">
+      <rect class="trigger-box card" width="280" height="78" filter="url(#shadow-warm)"/>
+      <text x="20" y="28" class="process-t" fill="#92400e">🔥 Пожарный извещатель</text>
+      <text x="20" y="48" class="detail-t">Автоматическая система ОПС</text>
+      <text x="20" y="64" class="detail-t">Дым / температура / пламя</text>
+      <circle cx="260" cy="20" r="4" fill="#f59e0b" class="pulse"/>
+    </g>
+
+    <g transform="translate(380,100)">
+      <rect class="trigger-box card" width="280" height="78" filter="url(#shadow-warm)"/>
+      <text x="20" y="28" class="process-t" fill="#92400e">📹 Видеоаналитика</text>
+      <text x="20" y="48" class="detail-t">AI-обнаружение: дым / паника (VMS)</text>
+      <text x="20" y="64" class="detail-t">ONVIF/RTSP интеграция</text>
+      <circle cx="260" cy="20" r="4" fill="#f59e0b" class="blink"/>
+    </g>
+
+    <g transform="translate(680,100)">
+      <rect class="trigger-box card" width="280" height="78" filter="url(#shadow-warm)"/>
+      <text x="20" y="28" class="process-t" fill="#92400e">🚨 Тревожная кнопка</text>
+      <text x="20" y="48" class="detail-t">Ручное срабатывание (охрана)</text>
+      <text x="20" y="64" class="detail-t">Приоритет высокий</text>
+    </g>
+
+    <g transform="translate(980,100)">
+      <rect class="trigger-box card" width="180" height="78" filter="url(#shadow-warm)"/>
+      <text x="20" y="28" class="process-t" fill="#92400e">📱 Мобильное</text>
+      <text x="20" y="48" class="detail-t">Приложение: SOS</text>
+      <text x="20" y="64" class="detail-t">Сигнал от посетителя</text>
+    </g>
+  </g>
+
+  <!-- Section: Центральное управление -->
+  <text x="40" y="230" class="subtitle">Центральное управление</text>
+  <line x1="40" y1="234" x2="260" y2="234" stroke="#94a3b8" stroke-width="1"/>
+
+  <g id="bms" class="pop-in card" style="animation-delay:.08s" aria-label="BMS Центр управления">
+    <rect class="bms-box" x="450" y="250" width="300" height="88" filter="url(#shadow-neutral)"/>
+    <text x="470" y="280" class="bms-t">🏢 BMS: Центр управления</text>
+    <text x="470" y="298" class="detail-t">Корреляция событий;</text>
+        <text x="470" y="318" class="detail-t">при эскалации → EVACUATION MODE</text>
+    <circle cx="730" cy="272" r="5" fill="#3b82f6" class="pulse"/>
+  </g>
+
+  <!-- Section: Исполнительные системы -->
+  <text x="40" y="350" class="subtitle">Исполнительные системы</text>
+  <line x1="40" y1="354" x2="300" y2="354" stroke="#94a3b8" stroke-width="1"/>
+
+  <!-- Row 1 -->
+  <g id="actuators-row1" class="pop-in" style="animation-delay:.12s">
+    <g transform="translate(80,390)">
+      <rect class="side-box card" width="260" height="78" filter="url(#shadow-side)"/>
+      <text x="20" y="28" class="system-t">📢 СОУЭ оповещение</text>
+      <text x="20" y="48" class="detail-t">Голосовые сообщения по зонам</text>
+      <text x="20" y="64" class="detail-t">Сирены / световые табло</text>
+    </g>
+    <g transform="translate(360,390)">
+      <rect class="side-box card" width="260" height="78" filter="url(#shadow-side)"/>
+      <text x="20" y="28" class="system-t">🚪 СКУД управление</text>
+      <text x="20" y="48" class="detail-t">Разблокировка аварийных выходов</text>
+      <text x="20" y="64" class="detail-t">Соответствие нормам ПБ</text>
+    </g>
+    <g transform="translate(640,390)">
+      <rect class="side-box card" width="260" height="78" filter="url(#shadow-side)"/>
+      <text x="20" y="28" class="system-t">💡 Аварийное освещение</text>
+      <text x="20" y="48" class="detail-t">Подсветка маршрутов эвакуации</text>
+      <text x="20" y="64" class="detail-t">Указательные знаки</text>
+    </g>
+    <g transform="translate(920,390)">
+      <rect class="side-box card" width="240" height="78" filter="url(#shadow-side)"/>
+      <text x="20" y="28" class="system-t">🔥 Противопожарные системы</text>
+      <text x="20" y="48" class="detail-t">Спринклеры / дымоудаление</text>
+      <text x="20" y="64" class="detail-t">Локализация очага</text>
+    </g>
+  </g>
+
+  <!-- Row 2 -->
+  <g id="actuators-row2" class="pop-in" style="animation-delay:.16s">
+    <g transform="translate(80,490)">
+      <rect class="side-box card" width="260" height="78" filter="url(#shadow-side)"/>
+      <text x="20" y="28" class="system-t">🗺️ Навигационные табло</text>
+      <text x="20" y="48" class="detail-t">Динамические маршруты</text>
+      <text x="20" y="64" class="detail-t">LED/LCD указатели</text>
+    </g>
+    <g transform="translate(360,490)">
+      <rect class="side-box card" width="260" height="78" filter="url(#shadow-side)"/>
+      <text x="20" y="28" class="system-t">📱 Mobile App / MAX</text>
+      <text x="20" y="48" class="detail-t">Push-уведомления по зонам</text>
+      <text x="20" y="64" class="detail-t">Инструкции эвакуации</text>
+      <circle cx="230" cy="20" r="4" fill="#16a34a" class="blink"/>
+    </g>
+    <g transform="translate(640,490)">
+      <rect class="side-box card" width="260" height="78" filter="url(#shadow-side)"/>
+      <text x="20" y="28" class="system-t">👥 Диспетчерская</text>
+      <text x="20" y="48" class="detail-t">Мониторинг / координация</text>
+      <text x="20" y="64" class="detail-t">Связь с МЧС</text>
+    </g>
+    <g transform="translate(920,490)">
+      <rect class="side-box card" width="240" height="78" filter="url(#shadow-side)"/>
+      <text x="20" y="28" class="system-t">📹 Видеоконтроль</text>
+      <text x="20" y="48" class="detail-t">Верификация эвакуации</text>
+      <text x="20" y="64" class="detail-t">Контроль по зонам</text>
+      <circle cx="220" cy="20" r="4" fill="#3b82f6" class="pulse"/>
+    </g>
+  </g>
+
+  <!-- Section: Мониторинг и документирование -->
+  <text x="40" y="630" class="subtitle">Мониторинг и документирование</text>
+  <line x1="40" y1="634" x2="330" y2="634" stroke="#94a3b8" stroke-width="1"/>
+
+  <g id="monitoring" class="pop-in" style="animation-delay:.20s">
+    <g transform="translate(360,650)">
+      <rect class="process-box card" width="280" height="78" filter="url(#shadow-neutral)"/>
+      <text x="20" y="28" class="process-t">📊 Система мониторинга</text>
+      <text x="20" y="48" class="detail-t">Таймлайн событий, отчёты</text>
+      <text x="20" y="64" class="detail-t">Журналирование и аудит</text>
+    </g>
+    <g transform="translate(660,650)">
+      <rect class="process-box card" width="280" height="78" filter="url(#shadow-neutral)"/>
+      <text x="20" y="28" class="process-t">🔄 Система восстановления</text>
+      <text x="20" y="48" class="detail-t">Возврат в штатный режим</text>
+      <text x="20" y="64" class="detail-t">Анализ эффективности</text>
+    </g>
+  </g>
+
+  <!-- END -->
+  <g id="end" class="pop-in" style="animation-delay:.24s" aria-label="Завершение эвакуации">
+    <rect class="success-box card" x="480" y="770" width="240" height="64" filter="url(#shadow-success)"/>
+    <circle cx="510" cy="802" r="10" fill="#16a34a" class="pulse"/>
+    <text x="530" y="808" class="process-t" fill="#166534">Завершение эвакуации</text>
+  </g>
+
+  <!-- Flow connections -->
+  <!-- Triggers → BMS -->
+  <path class="warn-arrow flow-anim" d="M220,178 Q220,220 500,250"/>
+  <path class="warn-arrow flow-anim" d="M520,178 L520,250"/>
+  <path class="warn-arrow flow-anim" d="M820,178 Q820,220 700,250"/>
+  <path class="warn-arrow flow-anim" d="M1070,178 Q1070,220 750,250"/>
+
+  <!-- BMS → Actuators row1 -->
+  <path class="arrow flow-anim" d="M600,338 Q300,372 210,390"/>
+  <path class="arrow flow-anim" d="M600,338 Q500,372 490,390"/>
+  <path class="arrow flow-anim" d="M600,338 Q700,372 770,390"/>
+  <path class="arrow flow-anim" d="M600,338 Q900,372 1040,390"/>
+
+  <!-- Row1 → Row2 vertical cascades -->
+  <path class="side-arrow flow-anim" d="M210,468 L210,490"/>
+  <path class="side-arrow flow-anim" d="M490,468 L490,490"/>
+  <path class="side-arrow flow-anim" d="M770,468 L770,490"/>
+  <path class="side-arrow flow-anim" d="M1040,468 L1040,490"/>
+
+  <!-- Row2 → Monitoring -->
+  <path class="side-arrow flow-anim" d="M500,568 L500,650"/>
+  <path class="side-arrow flow-anim" d="M800,568 L800,650"/>
+
+  <!-- Monitoring → END -->
+  <path class="success-arrow flow-anim fast" d="M600,728 L600,770"/>
+
+  <!-- Feedback loops -->
+  <path class="side-arrow flow-anim" d="M360,690 C260,690 260,600 260,560"/>
+
+  <!-- Meta: timings -->
+  <text x="940" y="24" class="detail-t">⏱️ Время реакции: &lt; 30 сек</text>
+  <text x="942" y="40" class="detail-t">📍 Эвакуация: 3–8 минут</text>
+  <text x="940" y="56" class="detail-t">🔄 Обновление статуса: каждые 10 сек</text>
+
+  <!-- Step badges -->
+  <g class="pop-in" style="animation-delay:.02s">
+    <use href="#badge" x="40" y="120" width="30" height="30"/><text x="55" y="140" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">1</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.06s">
+    <use href="#badge" x="410" y="275" width="30" height="30"/><text x="425" y="295" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">2</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.10s">
+    <use href="#badge" x="40" y="415" width="30" height="30"/><text x="55" y="435" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">3</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.14s">
+    <use href="#badge" x="40" y="515" width="30" height="30"/><text x="55" y="535" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">4</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.18s">
+    <use href="#badge" x="950" y="675" width="30" height="30"/><text x="965" y="695" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">5</text>
+  </g>
+
+  <!-- Legend -->
+  <g id="legend" class="pop-in" style="animation-delay:.26s" aria-label="Легенда">
+    <text x="270" y="30" class="detail-t">Легенда:</text>
+    <rect class="trigger-box" x="270" y="40" width="22" height="14" filter="url(#shadow-warm)"/>
+    <text x="300" y="52" class="detail-t">Триггер</text>
+    <rect class="bms-box" x="390" y="40" width="22" height="14" filter="url(#shadow-neutral)"/>
+    <text x="420" y="52" class="detail-t">BMS центр</text>
+    <rect class="side-box" x="520" y="40" width="22" height="14" filter="url(#shadow-side)"/>
+    <text x="550" y="52" class="detail-t">Исполнительная/боковая система</text>
+    <rect class="success-box" x="760" y="40" width="22" height="14" filter="url(#shadow-success)"/>
+    <text x="790" y="52" class="detail-t">Завершение</text>
+  </g>
+</svg>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="420" height="880" viewBox="0 0 420 880">
+  <defs>
+    <style>
+      .shell{fill:#f4f5f8;stroke:#111;stroke-width:2;rx:38;ry:38}
+      .dark{fill:#111}
+      .light{fill:#fff}
+      .card{fill:#fff;stroke:#d8dce5;stroke-width:1.6;rx:16;ry:16;filter:drop-shadow(0px 4px 6px rgba(0,0,0,0.07))}
+      .shadow{filter:url(#shadow)}
+      .title{font:700 20px "DejaVu Sans", Arial, sans-serif;fill:#111}
+      .text{font:14px "DejaVu Sans", Arial, sans-serif;fill:#1b1f23}
+      .caption{font:12px "DejaVu Sans", Arial, sans-serif;fill:#64748b}
+      .btn{fill:url(#orange-gradient);stroke:#c2410c;stroke-width:1.4;rx:14;ry:14}
+      .btn-text{font:600 15px "DejaVu Sans", Arial, sans-serif;fill:#fff;text-anchor:middle}
+      .btn-outline{fill:#fff;stroke:#1b8a5a;stroke-width:1.4;rx:14;ry:14}
+      .btn-outline-text{font:600 14px "DejaVu Sans", Arial, sans-serif;fill:#1b8a5a;text-anchor:middle}
+      .light-accent{fill:#fff4e6}
+      .accent-text{font:600 14px "DejaVu Sans", Arial, sans-serif;fill:#f97316}
+      .food-img{filter:drop-shadow(0px 4px 8px rgba(0,0,0,0.12))}
+      .price-tag{fill:url(#orange-gradient);rx:8;ry:8}
+      .price-text{font:bold 14px "DejaVu Sans", Arial, sans-serif;fill:#fff;text-anchor:middle}
+      .counter{fill:#f1f5f9;rx:10;ry:10}
+      .counter-btn{fill:#fff;stroke:#cbd5e1;stroke-width:1;rx:8;ry:8}
+      .counter-text{font:bold 16px "DejaVu Sans", Arial, sans-serif;fill:#0f172a;text-anchor:middle}
+      .badge{fill:#e0f3ea;stroke:#1b8a5a;stroke-width:1;rx:12;ry:12}
+      .divider{stroke:#e2e8f0;stroke-width:1}
+      .icon{fill:#475569}
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      .spinning {
+        transform-origin: 50% 50%;
+        transform-box: fill-box;
+        animation: spin 20s linear infinite;
+      }
+      @keyframes pulse {
+        0% { opacity: 0.8; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.05); }
+        100% { opacity: 0.8; transform: scale(1); }
+      }
+      .pulse {
+        transform-origin: 50% 50%;
+        transform-box: fill-box;
+        animation: pulse 2s infinite ease-in-out;
+      }
+    </style>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#1b1f2318"/>
+    </filter>
+    <linearGradient id="orange-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb923c"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+    <pattern id="checker-pattern" width="10" height="10" patternUnits="userSpaceOnUse">
+      <rect width="5" height="5" fill="#fef3c7"/>
+      <rect x="5" width="5" height="5" fill="#fffbeb"/>
+      <rect y="5" width="5" height="5" fill="#fffbeb"/>
+      <rect x="5" y="5" width="5" height="5" fill="#fef3c7"/>
+    </pattern>
+    <!-- Food images -->
+    <radialGradient id="burger-gradient" cx="50%" cy="50%" r="60%" fx="40%" fy="40%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </radialGradient>
+    <radialGradient id="fries-gradient" cx="50%" cy="50%" r="70%" fx="30%" fy="30%">
+      <stop offset="0%" stop-color="#fcd34d"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </radialGradient>
+  </defs>
+
+  <rect class="shell" x="8" y="8" width="404" height="864"/>
+  <rect class="dark" x="140" y="18" width="140" height="6" rx="3"/>
+
+  <g transform="translate(28,54)">
+    <text x="0" y="0" class="title">Меню UMS Arena</text>
+    <text x="0" y="24" class="caption">Доставка на места • Самовывоз из зон питания</text>
+  </g>
+
+  <!-- Food item 1 -->
+  <g transform="translate(24,94)" class="shadow">
+    <rect class="card" width="372" height="140"/>
+    <!-- Burger illustration -->
+    <g transform="translate(20, 30)" class="food-img">
+      <circle cx="30" cy="36" r="36" fill="#fef9c3" stroke="#f59e0b" stroke-width="2"/>
+      <circle cx="30" cy="36" r="30" fill="url(#burger-gradient)"/>
+      <rect x="0" y="30" width="60" height="12" rx="6" fill="#DAA520" stroke="#d97706" stroke-width="1"/>
+      <rect x="4" y="42" width="52" height="8" rx="4" fill="#fef3c7"/>
+      <rect x="2" y="22" width="56" height="8" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+    </g>
+    <text x="104" y="40" class="text" font-weight="600">Бургер классический</text>
+    <text x="104" y="60" class="caption">Говядина, сыр чеддер, томаты, салат, соус</text>
+    <text x="104" y="80" class="caption">~350г • ~480 ккал • 15-20 мин</text>
+    <rect class="price-tag" x="104" y="94" width="80" height="26"/>
+    <text x="144" y="112" class="price-text">420 ₽</text>
+    
+    <rect class="counter" x="200" y="94" width="82" height="26"/>
+    <rect class="counter-btn" x="200" y="94" width="26" height="26"/>
+    <text x="213" y="110" class="counter-text">-</text>
+    <rect class="counter-btn" x="256" y="94" width="26" height="26"/>
+    <text x="269" y="110" class="counter-text">+</text>
+    <text x="238" y="112" class="counter-text">1</text>
+    
+    <rect class="btn" x="294" y="82" width="60" height="40"/>
+    <text x="324" y="106" class="btn-text">+</text>
+  </g>
+
+  <!-- Food item 2 -->
+  <g transform="translate(24,246)" class="shadow">
+    <rect class="card" width="372" height="140"/>
+    <!-- Fries illustration -->
+    <g transform="translate(14, 30)" class="food-img">
+      <rect x="16" y="12" width="40" height="60" rx="4" fill="url(#checker-pattern)" stroke="#d97706" stroke-width="2"/>
+      <rect x="20" y="4" width="6" height="50" rx="2" fill="url(#fries-gradient)" stroke="#d97706" stroke-width="1"/>
+      <rect x="32" y="0" width="6" height="60" rx="2" fill="url(#fries-gradient)" stroke="#d97706" stroke-width="1"/>
+      <rect x="44" y="2" width="6" height="54" rx="2" fill="url(#fries-gradient)" stroke="#d97706" stroke-width="1"/>
+    </g>
+    <text x="104" y="40" class="text" font-weight="600">Картофель фри</text>
+    <text x="104" y="60" class="caption">Хрустящий картофель с соусом на выбор</text>
+    <text x="104" y="80" class="caption">~200г • ~320 ккал • 10-15 мин</text>
+    <rect class="price-tag" x="104" y="94" width="80" height="26"/>
+    <text x="144" y="112" class="price-text">240 ₽</text>
+    
+    <rect class="counter" x="200" y="94" width="82" height="26"/>
+    <rect class="counter-btn" x="200" y="94" width="26" height="26"/>
+    <text x="213" y="110" class="counter-text">-</text>
+    <rect class="counter-btn" x="256" y="94" width="26" height="26"/>
+    <text x="269" y="110" class="counter-text">+</text>
+    <text x="238" y="112" class="counter-text">2</text>
+    
+    <rect class="btn" x="294" y="82" width="60" height="40"/>
+    <text x="324" y="106" class="btn-text">+</text>
+  </g>
+  
+  <!-- Cart -->
+  <g transform="translate(24,402)" class="shadow">
+    <rect class="card" width="372" height="120"/>
+    <text x="24" y="36" class="text" font-weight="600">Ваш заказ</text>
+    <text x="24" y="58" class="caption">Бургер классический × 1 = 420 ₽</text>
+    <text x="24" y="76" class="caption">Картофель фри × 2 = 480 ₽</text>
+    <line class="divider" x1="24" y1="88" x2="348" y2="88"/>
+    <text x="24" y="106" class="text" font-weight="600">Итого: 900 ₽</text>
+    <rect class="btn" x="255" y="30" width="100" height="40"/>
+    <text x="304" y="57" class="btn-text">Оформить</text>
+  </g>
+
+  <!-- Success screen -->
+  <g transform="translate(24,540)" class="shadow">
+    <rect class="card" width="372" height="180"/>
+    <circle cx="186" cy="60" r="40" fill="#dcfce7" class="pulse"/>
+    <path d="M166,60 L180,74 L206,48" stroke="#16a34a" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="186" y="126" class="text" font-weight="600" text-anchor="middle">Заказ #47823 принят</text>
+    <text x="186" y="146" class="caption" text-anchor="middle">Оплачено с карты ····4582</text>
+    <text x="186" y="164" class="caption" text-anchor="middle">Доставка: ряд 7, место 14 • ETA 17 минут</text>
+  </g>
+
+<!-- Processing screen -->
+<g transform="translate(24,740)" class="shadow">
+  <rect class="card" width="372" height="120"/>
+  
+  <!-- Animated loader -->
+  <g transform="translate(186,45)">    
+    <!-- Rotating ring -->
+    <circle r="18" fill="none" stroke="#f1f5f9" stroke-width="5"/>
+    <path d="M0,-18 A18,18 0 0,1 18,0" stroke="url(#orange-gradient)" stroke-width="5" fill="none" stroke-linecap="round">
+      <animateTransform attributeName="transform" attributeType="XML" type="rotate"
+        from="0 0 0" to="360 0 0" dur="2s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  
+  <!-- Animated text -->
+  <text x="186" y="95" class="text" font-weight="600" text-anchor="middle">
+    Обработка платежа
+    <animate attributeName="opacity" values="1;0.6;1" dur="2s" repeatCount="indefinite"/>
+  </text>
+  <text x="186" y="112" class="caption" text-anchor="middle">Пожалуйста, подождите...</text>
+</g>
+</svg>

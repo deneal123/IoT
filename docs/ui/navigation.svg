@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="420" height="880" viewBox="0 0 420 880">
+  <defs>
+    <style>
+      .shell{fill:#f4f5f8;stroke:#111;stroke-width:2;rx:38;ry:38}
+      .dark{fill:#111}
+      .light{fill:#fff}
+      .card{fill:#fff;stroke:#d8dce5;stroke-width:1.6;rx:16;ry:16;filter:drop-shadow(0px 4px 6px rgba(0,0,0,0.07))}
+      .shadow{filter:url(#shadow)}
+      .title{font:700 20px "DejaVu Sans", Arial, sans-serif;fill:#111}
+      .text{font:14px "DejaVu Sans", Arial, sans-serif;fill:#1b1f23}
+      .caption{font:12px "DejaVu Sans", Arial, sans-serif;fill:#64748b}
+      .accent{fill:url(#blue-gradient)}
+      .light-accent{fill:#e0f2fe}
+      .accent-text{font:600 14px "DejaVu Sans", Arial, sans-serif;fill:#0369a1}
+      .cta{fill:url(#blue-gradient);stroke:#0c4a6e;stroke-width:1.4;rx:14;ry:14}
+      .cta-text{font:600 15px "DejaVu Sans", Arial, sans-serif;fill:#fff;text-anchor:middle}
+      .badge{fill:#e0f2fe;stroke:#0369a1;stroke-width:1;rx:12;ry:12}
+      .danger{fill:#fee2e2;stroke:#c62828;stroke-width:1.4;rx:12;ry:12}
+      .notification{fill:#fffbeb;stroke:#ca8a04;stroke-width:1.4;rx:12;ry:12}
+      .notification-text{font:13px "DejaVu Sans", Arial, sans-serif;fill:#854d0e}
+      .switch-track{fill:#dde4ec;rx:16;ry:16}
+      .switch-thumb{fill:url(#blue-gradient);stroke:#0c4a6e;stroke-width:1}
+      .divider{stroke:#e2e8f0;stroke-width:1}
+      .icon{fill:#475569}
+      .route{fill:none;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .route-a{stroke:url(#route-a-gradient)}
+      .route-b{stroke:url(#route-b-gradient);stroke-dasharray:6,8}
+      .pin{fill:url(#orange-gradient);filter:drop-shadow(0px 2px 4px rgba(0,0,0,0.15))}
+      .pin-text{font:bold 12px "DejaVu Sans", Arial, sans-serif;fill:#fff;text-anchor:middle}
+      @keyframes pulse {
+        0% { opacity: 0.8; transform: scale(0.95); }
+        50% { opacity: 1; transform: scale(1.05); }
+        100% { opacity: 0.8; transform: scale(0.95); }
+      }
+      .pulse {
+        transform-box: fill-box;
+        transform-origin: 50% 50%;
+        animation: pulse 2s infinite ease-in-out;
+      }
+    </style>
+    
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="rgba(27, 31, 35, 0.1)"/>
+    </filter>
+    
+    <linearGradient id="blue-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    
+    <linearGradient id="route-a-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0369a1"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    
+    <linearGradient id="route-b-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#15803d"/>
+    </linearGradient>
+    
+    <linearGradient id="orange-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#c2410c"/>
+    </linearGradient>
+    
+    <pattern id="pattern-stripes" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="4" height="8" fill="#e2e8f0"/>
+      <rect x="4" width="4" height="8" fill="#f1f5f9"/>
+    </pattern>
+  </defs>
+
+  <!-- Phone shell -->
+  <rect class="shell" x="8" y="8" width="404" height="864"/>
+  <rect class="dark" x="140" y="18" width="140" height="6" rx="3"/>
+
+  <!-- Header -->
+  <g transform="translate(28,54)">
+    <text x="0" y="0" class="title">Навигация</text>
+    <text x="0" y="24" class="caption">Стадион UMS Derby · 5G Indoor GPS · Точность 1.2 м</text>
+  </g>
+
+  <!-- Route selection -->
+  <g transform="translate(24,94)" class="shadow">
+    <rect class="card" width="372" height="48"/>
+    <line x1="186" y1="0" x2="186" y2="48" class="divider"/>
+    
+    <g transform="translate(47, 24)">
+      <circle cx="-16" cy="0" r="8" fill="#0369a1"/>
+      <text x="-4" y="4" class="text" text-anchor="start">Маршрут A · 4 мин</text>
+    </g>
+    
+    <g transform="translate(229, 24)">
+      <circle cx="-16" cy="0" r="8" fill="#15803d"/>
+      <text x="-4" y="4" class="text" text-anchor="start">Маршрут B · 5 мин</text>
+    </g>
+  </g>
+
+  <!-- Map -->
+  <g transform="translate(24,156)" class="shadow">
+    <rect class="card" width="372" height="320"/>
+    <rect x="14" y="14" width="344" height="292" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+    
+    <!-- Stadium outline -->
+    <rect x="74" y="74" width="224" height="172" rx="80" fill="url(#pattern-stripes)" stroke="#94a3b8" stroke-width="1.5"/>
+    <ellipse cx="186" cy="160" rx="60" ry="30" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,2"/>
+    
+    <!-- Routes -->
+    <path class="route route-a" d="M36,280 C60,220 100,180 186,160 C240,140 260,120 320,60"/>
+    <path class="route route-b" d="M36,280 C80,240 140,220 186,160 C240,100 260,80 320,60"/>
+    
+    <!-- Pins -->
+    <circle class="pin" cx="36" cy="280" r="12"/>
+    <text x="36" y="284" class="pin-text">A</text>
+    
+    <circle class="pin" cx="320" cy="60" r="12"/>
+    <text x="320" y="64" class="pin-text">B</text>
+    
+    <!-- Current location -->
+    <circle class="pulse" cx="186" cy="160" r="10" fill="#0369a1" opacity="0.7"/>
+    <circle cx="186" cy="160" r="6" fill="#0369a1"/>
+    <circle cx="186" cy="160" r="2" fill="#fff"/>
+  </g>
+
+  <!-- Notification bar -->
+  <g transform="translate(24,492)">
+    <rect class="notification" width="372" height="56" filter="drop-shadow(0px 2px 4px rgba(202,138,4,0.15))"/>
+    <circle cx="32" cy="28" r="14" fill="#eab308"/>
+    <path d="M32,20 L32,28 L38,32" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <g transform="translate(56, 28)">
+      <text x="0" y="0" class="notification-text">Пуш отправлен посетителям в зоне B3</text>
+      <text x="0" y="16" class="caption" fill="#854d0e">12:45:32 · 2648 получателей · 89% доставка</text>
+    </g>
+  </g>
+
+  <!-- Detour warning -->
+  <g transform="translate(24,564)" class="shadow">
+    <rect class="card" width="372" height="120"/>
+    
+    <!-- Icon and title -->
+    <rect x="24" y="24" width="24" height="24" rx="12" class="light-accent"/>
+    <path fill="#0369a1" transform="translate(24,24)" d="M8,16 L16,16 L12,8 L8,16 Z M12,2 C17.5228,2 22,6.47715 22,12 C22,17.5228 17.5228,22 12,22 C6.47715,22 2,17.5228 2,12 C2,6.47715 6.47715,2 12,2 Z"/>
+    <text x="60" y="41" class="text" font-weight="600">Обнаружен объезд</text>
+    
+    <!-- Warning message -->
+    <text x="24" y="68" class="caption">Зона B3 перегружена</text>
+    <text x="24" y="88" class="caption">(плотность > 4 чел/м²).</text>
+    
+    <!-- Button -->
+    <rect class="cta" x="208" y="64" width="150" height="40"/>
+    <text x="284" y="90" class="cta-text">Обновить маршрут</text>
+  </g>
+
+  <!-- Realtime stats -->
+  <g transform="translate(24,700)" class="shadow">
+    <rect class="card" width="372" height="134"/>
+    <line class="divider" x1="186" y1="24" x2="186" y2="110"/>
+    <line class="divider" x1="24" y1="75" x2="348" y2="75"/>
+    
+    <!-- Left top -->
+    <text x="24" y="45" class="caption">Входы - загрузка</text>
+    <text x="24" y="65" class="text">№1: 64%; №2: 87%</text>
+    
+    <!-- Left bottom -->
+    <text x="24" y="95" class="caption">Время в пути (сред.)</text>
+    <text x="24" y="115" class="text">4.8 мин (↑12%)</text>
+    
+    <!-- Right top -->
+    <text x="210" y="45" class="caption">Плотность (макс.)</text>
+    <text x="210" y="65" class="text">4.2 чел/м² - зона B3</text>
+    
+    <!-- Right bottom -->
+    <text x="210" y="95" class="caption">Обновление данных</text>
+    <text x="210" y="115" class="text">18 сек. назад</text>
+  </g>
+</svg>
