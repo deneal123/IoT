@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  UMS Protocols Map (Unified Style v1.0)
+  Consistent palette, typography, corners, shadows, and motion with previous diagrams.
+  Scope: Protocol families across interfaces + example data flows.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="auto" viewBox="0 0 1400 980" role="img" aria-labelledby="title desc">
+  <title id="title">Карта протоколов и шин UMS</title>
+  <desc id="desc">Протоколы по интерфейсам: Edge↔Подсистемы, Подсистемы↔BMS/SCADA, BMS↔Платформа, Платформа↔Внешние системы. Отдельные семейства: Видео, Зарядки (OCPP), Идентификация/доступ, Криптография/безопасность, Edge IoT. Внизу — примеры потоков данных.</desc>
+
+  <!-- Defs -->
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="panelGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#f8fafc" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="sideGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f0f9ff"/>
+      <stop offset="100%" stop-color="#e0f2fe"/>
+    </linearGradient>
+    <linearGradient id="warnGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff7ed"/>
+      <stop offset="100%" stop-color="#fef3c7"/>
+    </linearGradient>
+    <linearGradient id="successGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ecfdf5"/>
+      <stop offset="100%" stop-color="#dcfce7"/>
+    </linearGradient>
+
+    <!-- Shadows -->
+    <filter id="shadow-neutral" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#334155" flood-opacity="0.18"/>
+    </filter>
+    <filter id="shadow-side" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0284c7" flood-opacity="0.18"/>
+    </filter>
+    <filter id="shadow-warn" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#f59e0b" flood-opacity="0.25"/>
+    </filter>
+    <filter id="shadow-success" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#16a34a" flood-opacity="0.18"/>
+    </filter>
+
+    <!-- Arrow markers -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#475569"/>
+    </marker>
+    <marker id="blue-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0284c7"/>
+    </marker>
+    <marker id="green-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#16a34a"/>
+    </marker>
+    <marker id="amber-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#f59e0b"/>
+    </marker>
+    <marker id="purple-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#8b5cf6"/>
+    </marker>
+
+    <!-- Badge -->
+    <symbol id="badge" viewBox="0 0 30 30">
+      <defs>
+        <radialGradient id="badgeGrad" cx="50%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#60a5fa"/>
+          <stop offset="100%" stop-color="#3b82f6"/>
+        </radialGradient>
+      </defs>
+      <circle cx="15" cy="15" r="14" fill="url(#badgeGrad)" stroke="#1e40af" stroke-width="2"/>
+    </symbol>
+  </defs>
+
+  <!-- Styles -->
+  <style>
+    .title { font: 700 24px "Segoe UI", Arial, sans-serif; fill: #1e293b; text-anchor: middle; }
+    .section-t { font: 700 16px "Segoe UI", Arial, sans-serif; fill: #334155; }
+    .process-t { font: 600 15px "Segoe UI", Arial, sans-serif; fill: #334155; }
+    .detail-t { font: 12px "Segoe UI", Arial, sans-serif; fill: #64748b; }
+    .legend-t { font: 12px "Segoe UI", Arial, sans-serif; fill: #475569; }
+
+    .card { transition: transform 200ms ease, filter 200ms ease; }
+    .card:hover { transform: translateY(-2px); }
+
+    .panel { fill: url(#panelGradient); stroke: #334155; stroke-width: 2; rx: 12; ry: 12; }
+    .side-panel { fill: url(#sideGradient); stroke: #0284c7; stroke-width: 2; rx: 12; ry: 12; }
+    .warn-panel { fill: url(#warnGradient); stroke: #f59e0b; stroke-width: 2; rx: 12; ry: 12; }
+    .success-panel { fill: url(#successGradient); stroke: #16a34a; stroke-width: 2; rx: 12; ry: 12; }
+
+    .chip { fill: #ffffff; stroke: #1e40af; stroke-width: 1.2; rx: 8; ry: 8; }
+    .chip-t { font: 600 12px "Segoe UI", Arial, sans-serif; fill: #1e40af; }
+
+    .arrow { stroke: #475569; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    .bus-arrow { stroke: #0284c7; stroke-width: 2; fill: none; marker-end: url(#blue-arrow); }
+    .sec-arrow { stroke: #16a34a; stroke-width: 2; fill: none; marker-end: url(#green-arrow); }
+    .ind-arrow { stroke: #1e40af; stroke-width: 2; fill: none; marker-end: url(#arrowhead); stroke-dasharray: 6 6; }
+    .vid-arrow { stroke: #8b5cf6; stroke-width: 2; fill: none; marker-end: url(#purple-arrow); }
+
+    .flow-anim { stroke-dasharray: 6 8; animation: flow 2.8s linear infinite; }
+    .flow-anim.fast { animation-duration: 1.8s; }
+    .pulse { transform-box: fill-box; animation: pulse 2.2s ease-in-out infinite; transform-origin: 50% 50%; }
+    .pop-in { animation: pop 480ms cubic-bezier(.2,.8,.2,1) both; }
+    .blink { animation: blink 1.6s step-end infinite; }
+
+    @keyframes flow { to { stroke-dashoffset: -28; } }
+    @keyframes pulse { 0%,100%{opacity:.35;transform:scale(1)} 50%{opacity:.9;transform:scale(1.2)} }
+    @keyframes pop { 0%{opacity:0;transform:translateY(6px) scale(.95)} 100%{opacity:1;transform:translateY(0) scale(1)} }
+    @keyframes blink { 0%{opacity:0} 50%{opacity:1} 100%{opacity:0} }
+    @media (prefers-reduced-motion: reduce) { .flow-anim, .pulse, .pop-in, .blink { animation: none !important; } }
+  </style>
+
+  <!-- Interface bands -->
+  <!-- Edge ↔ Subsystems -->
+  <g class="card pop-in" style="animation-delay:.04s" aria-label="Edge ↔ Подсистемы">
+    <rect class="panel" x="70" y="110" width="1260" height="80" filter="url(#shadow-neutral)"/>
+    <text x="90" y="140" class="section-t">Edge ↔ Подсистемы (полевой уровень)</text>
+
+    <!-- Chips row 1 -->
+    <g transform="translate(80,150)">
+      <rect class="chip" x="0" y="0" width="120" height="28"/><text x="12" y="19" class="chip-t">BACnet MS/TP</text>
+      <rect class="chip" x="130" y="0" width="105" height="28"/><text x="142" y="19" class="chip-t">Modbus RTU</text>
+      <rect class="chip" x="245" y="0" width="85" height="28"/><text x="257" y="19" class="chip-t">KNX</text>
+      <rect class="chip" x="340" y="0" width="85" height="28"/><text x="352" y="19" class="chip-t">DALI</text>
+      <rect class="chip" x="435" y="0" width="85" height="28"/><text x="447" y="19" class="chip-t">DMX</text>
+      <rect class="chip" x="530" y="0" width="85" height="28"/><text x="546" y="19" class="chip-t">CAN</text>
+
+      <rect class="chip" x="625" y="0" width="105" height="28"/><text x="637" y="19" class="chip-t">LwM2M + TSN</text>
+      <rect class="chip" x="740" y="0" width="85" height="28"/><text x="755" y="19" class="chip-t">CoAP</text>
+      <rect class="chip" x="835" y="0" width="80" height="28"/><text x="853" y="19" class="chip-t">BLE</text>
+      <rect class="chip" x="925" y="0" width="95" height="28"/><text x="942" y="19" class="chip-t">Zigbee</text>
+      <rect class="chip" x="1030" y="0" width="95" height="28"/><text x="1047" y="19" class="chip-t">Thread</text>
+      <rect class="chip" x="1135" y="0" width="105" height="28"/><text x="1148" y="19" class="chip-t">LoRaWAN</text>
+    </g>
+  </g>
+
+  <!-- Subsystems ↔ BMS/SCADA -->
+  <g class="card pop-in" style="animation-delay:.08s" aria-label="Подсистемы ↔ BMS/SCADA">
+    <rect class="panel" x="70" y="200" width="1260" height="80" filter="url(#shadow-neutral)"/>
+    <text x="90" y="230" class="section-t">Подсистемы ↔ BMS/SCADA (интеграции)</text>
+
+    <g transform="translate(80,240)">
+      <rect class="chip" x="0" y="0" width="110" height="28"/><text x="12" y="19" class="chip-t">OPC UA + EtherCAT</text>
+      <rect class="chip" x="120" y="0" width="120" height="28"/><text x="132" y="19" class="chip-t">BACnet/IP</text>
+      <rect class="chip" x="250" y="0" width="120" height="28"/><text x="262" y="19" class="chip-t">Modbus TCP</text>
+      <rect class="chip" x="380" y="0" width="95" height="28"/><text x="395" y="19" class="chip-t">ONVIF</text>
+      <rect class="chip" x="485" y="0" width="120" height="28"/><text x="510" y="19" class="chip-t">RTSP(S)</text>
+      <rect class="chip" x="615" y="0" width="95" height="28"/><text x="635" y="19" class="chip-t">SNMP</text>
+      <rect class="chip" x="720" y="0" width="125" height="28"/><text x="733" y="19" class="chip-t">OCPP 1.6</text>
+      <rect class="chip" x="855" y="0" width="135" height="28"/><text x="863" y="19" class="chip-t">OCPP 2.0.1</text>
+      <rect class="chip" x="1000" y="0" width="120" height="28"/><text x="1012" y="19" class="chip-t">WebSocket</text>
+    </g>
+  </g>
+
+  <!-- BMS ↔ Platform -->
+  <g class="card pop-in" style="animation-delay:.12s" aria-label="BMS ↔ Платформа">
+    <rect class="panel" x="70" y="290" width="1260" height="80" filter="url(#shadow-neutral)"/>
+    <text x="90" y="320" class="section-t">BMS/SCADA ↔ Платформа (шины и транспорт)</text>
+
+    <g transform="translate(80,330)">
+      <rect class="chip" x="0" y="0" width="110" height="28"/><text x="15" y="19" class="chip-t">MQTT + Profinet 5.0</text>
+      <rect class="chip" x="120" y="0" width="85" height="28"/><text x="140" y="19" class="chip-t">NATS</text>
+      <rect class="chip" x="215" y="0" width="95" height="28"/><text x="230" y="19" class="chip-t">Kafka</text>
+      <rect class="chip" x="320" y="0" width="105" height="28"/><text x="333" y="19" class="chip-t">gRPC</text>
+      <rect class="chip" x="435" y="0" width="90" height="28"/><text x="452" y="19" class="chip-t">REST</text>
+      <rect class="chip" x="535" y="0" width="125" height="28"/><text x="548" y="19" class="chip-t">WebSocket</text>
+      <rect class="chip" x="670" y="0" width="145" height="28"/><text x="680" y="19" class="chip-t">Shared Subs (MQTT + Profinet)</text>
+      <rect class="chip" x="825" y="0" width="115" height="28"/><text x="840" y="19" class="chip-t">Retain/QoS</text>
+      <rect class="chip" x="950" y="0" width="130" height="28"/><text x="960" y="19" class="chip-t">CEP Rules</text>
+      <rect class="chip" x="1090" y="0" width="150" height="28"/><text x="1100" y="19" class="chip-t">Time-series APIs</text>
+    </g>
+  </g>
+
+  <!-- Platform ↔ External -->
+  <g class="card pop-in" style="animation-delay:.16s" aria-label="Платформа ↔ Внешние системы">
+    <rect class="panel" x="70" y="380" width="1260" height="80" filter="url(#shadow-neutral)"/>
+    <text x="90" y="410" class="section-t">Платформа ↔ Внешние системы (доступ/безопасность)</text>
+
+    <g transform="translate(80,420)">
+      <rect class="chip" x="0" y="0" width="110" height="28"/><text x="20" y="19" class="chip-t">OIDC</text>
+      <rect class="chip" x="120" y="0" width="120" height="28"/><text x="132" y="19" class="chip-t">OAuth 2.1</text>
+      <rect class="chip" x="250" y="0" width="130" height="28"/><text x="260" y="19" class="chip-t">FIDO2/WebAuthn</text>
+      <rect class="chip" x="390" y="0" width="95" height="28"/><text x="408" y="19" class="chip-t">SCIM</text>
+      <rect class="chip" x="495" y="0" width="110" height="28"/><text x="512" y="19" class="chip-t">TLS 1.3</text>
+      <rect class="chip" x="615" y="0" width="95" height="28"/><text x="636" y="19" class="chip-t">mTLS</text>
+      <rect class="chip" x="720" y="0" width="95" height="28"/><text x="738" y="19" class="chip-t">JWS</text>
+      <rect class="chip" x="825" y="0" width="95" height="28"/><text x="843" y="19" class="chip-t">JWT</text>
+      <rect class="chip" x="930" y="0" width="140" height="28"/><text x="940" y="19" class="chip-t">ACME / LE</text>
+      <rect class="chip" x="1080" y="0" width="160" height="28"/><text x="1090" y="19" class="chip-t">Private PKI</text>
+    </g>
+  </g>
+
+  <!-- Side families -->
+  <g id="side-families" class="pop-in" style="animation-delay:.18s">
+    <!-- Video -->
+    <g transform="translate(70,490)">
+      <rect class="side-panel" x="0" y="0" width="300" height="110" filter="url(#shadow-side)"/>
+      <text x="16" y="26" class="section-t">Видео</text>
+      <text x="16" y="48" class="detail-t">RTSP(S), ONVIF (управление/метаданные)</text>
+      <text x="16" y="66" class="detail-t">SRT (низкая задержка), HLS/DASH (клиенты)</text>
+      <circle cx="280" cy="20" r="5" fill="#8b5cf6" class="pulse"/>
+    </g>
+
+    <!-- Charging -->
+    <g transform="translate(390,490)">
+      <rect class="side-panel" x="0" y="0" width="260" height="110" filter="url(#shadow-side)"/>
+      <text x="16" y="26" class="section-t">Зарядная инфраструктура</text>
+      <text x="16" y="48" class="detail-t">OCPP 1.6 / 2.0.1</text>
+      <text x="16" y="66" class="detail-t">QoS/события, тарификация</text>
+    </g>
+
+    <!-- Edge IoT -->
+    <g transform="translate(670,490)">
+      <rect class="side-panel" x="0" y="0" width="300" height="110" filter="url(#shadow-side)"/>
+      <text x="16" y="26" class="section-t">Edge IoT</text>
+      <text x="16" y="48" class="detail-t">MQTT + Profinet 5.0, LwM2M + TSN/CoAP, BLE/Zigbee/Thread</text>
+      <text x="16" y="66" class="detail-t">Шлюзы, локальные правила (low-latency)</text>
+    </g>
+
+    <!-- Identity/Security -->
+    <g transform="translate(990,490)">
+      <rect class="success-panel" x="0" y="0" width="340" height="110" filter="url(#shadow-success)"/>
+      <text x="16" y="26" class="section-t" style="fill:#166534">Идентификация и безопасность</text>
+      <text x="16" y="48" class="detail-t">IAM: OIDC, OAuth 2.1, SCIM, FIDO2 / WebAuthn</text>
+      <text x="16" y="66" class="detail-t">Крипто: TLS 1.3, mTLS, JWS/JWT, ACME, PKI</text>
+      <circle cx="320" cy="20" r="5" fill="#16a34a" class="blink"/>
+    </g>
+  </g>
+
+  <!-- Example data flows -->
+  <g id="flows" class="pop-in" style="animation-delay:.22s" aria-label="Примеры потоков данных">
+    <text x="70" y="640" class="section-t">Примеры потоков</text>
+
+    <!-- Flow 1: Камеры -> VMS -> Видеоаналитика -> MQTT + Profinet -> CEP -> BMS -> Клиенты -->
+    <g transform="translate(70,670)">
+      <!-- Nodes -->
+      <rect class="panel" x="0" y="0" width="120" height="46" filter="url(#shadow-neutral)"/><text x="12" y="28" class="process-t">Камеры</text>
+      <rect class="panel" x="150" y="0" width="120" height="46" filter="url(#shadow-neutral)"/><text x="162" y="28" class="process-t">VMS</text>
+      <rect class="panel" x="300" y="0" width="150" height="46" filter="url(#shadow-neutral)"/><text x="312" y="28" class="process-t">Видеоаналитика</text>
+      <rect class="panel" x="480" y="0" width="120" height="46" filter="url(#shadow-neutral)"/><text x="492" y="28" class="process-t">CEP</text>
+      <rect class="panel" x="620" y="0" width="120" height="46" filter="url(#shadow-neutral)"/><text x="632" y="28" class="process-t">BMS</text>
+      <rect class="panel" x="760" y="0" width="220" height="46" filter="url(#shadow-neutral)"/><text x="772" y="28" class="process-t">Клиенты (Web/Mobile/MAX)</text>
+
+      <!-- Edges -->
+      <path class="vid-arrow flow-anim" d="M120,23 L150,23"/>
+      <path class="vid-arrow flow-anim" d="M270,23 L300,23"/>
+      <path class="bus-arrow flow-anim" d="M450,23 L480,23"/>
+      <path class="bus-arrow flow-anim" d="M600,23 L620,23"/>
+      <path class="bus-arrow flow-anim" d="M740,23 L760,23"/>
+
+      <!-- Labels -->
+      <text x="135" y="-10" class="detail-t" text-anchor="middle">RTSP/ONVIF</text>
+      <text x="285" y="-10" class="detail-t" text-anchor="middle">RTSP/ONVIF</text>
+      <text x="465" y="-10" class="detail-t" text-anchor="middle">MQTT + Profinet</text>
+      <text x="610" y="-10" class="detail-t" text-anchor="middle">MQTT + Profinet</text>
+      <text x="750" y="-10" class="detail-t" text-anchor="middle">MQTT + Profinet/WebSocket</text>
+    </g>
+
+    <!-- Flow 2: СКУД -> BMS -> Tickets -> Mobile/MAX -->
+    <g transform="translate(70,740)">
+      <rect class="panel" x="0" y="0" width="120" height="46" filter="url(#shadow-neutral)"/><text x="12" y="28" class="process-t">СКУД</text>
+      <rect class="panel" x="150" y="0" width="120" height="46" filter="url(#shadow-neutral)"/><text x="162" y="28" class="process-t">BMS</text>
+      <rect class="panel" x="300" y="0" width="140" height="46" filter="url(#shadow-neutral)"/><text x="312" y="28" class="process-t">Tickets</text>
+      <rect class="panel" x="470" y="0" width="210" height="46" filter="url(#shadow-neutral)"/><text x="482" y="28" class="process-t">Mobile e-ticket / MAX</text>
+
+      <path class="ind-arrow flow-anim" d="M120,23 L150,23"/>
+      <path class="bus-arrow flow-anim" d="M270,23 L300,23"/>
+      <path class="sec-arrow flow-anim" d="M440,23 L470,23"/>
+
+      <text x="135" y="-10" class="detail-t" text-anchor="middle">BACnet/OPC UA + EtherCAT</text>
+      <text x="285" y="-10" class="detail-t" text-anchor="middle">MQTT + Profinet/NATS</text>
+      <text x="455" y="-10" class="detail-t" text-anchor="middle">OIDC/TLS</text>
+    </g>
+
+    <!-- Flow 3: АСКУЭ -> Energy -> Отчёты -> GR -->
+    <g transform="translate(760,740)">
+      <rect class="panel" x="0" y="0" width="140" height="46" filter="url(#shadow-neutral)"/><text x="12" y="28" class="process-t">АСКУЭ</text>
+      <rect class="panel" x="160" y="0" width="140" height="46" filter="url(#shadow-neutral)"/><text x="172" y="28" class="process-t">Energy</text>
+      <rect class="panel" x="320" y="0" width="120" height="46" filter="url(#shadow-neutral)"/><text x="332" y="28" class="process-t">Отчёты</text>
+      <rect class="panel" x="460" y="0" width="120" height="46" filter="url(#shadow-neutral)"/><text x="472" y="28" class="process-t">GR</text>
+
+      <path class="ind-arrow flow-anim" d="M140,23 L160,23"/>
+      <path class="bus-arrow flow-anim" d="M300,23 L320,23"/>
+      <path class="sec-arrow flow-anim" d="M440,23 L460,23"/>
+
+      <text x="150" y="-10" class="detail-t" text-anchor="middle">Modbus/BACnet</text>
+      <text x="310" y="-10" class="detail-t" text-anchor="middle">MQTT + Profinet/Kafka</text>
+      <text x="450" y="-10" class="detail-t" text-anchor="middle">TLS/EDI</text>
+    </g>
+  </g>
+
+  <!-- Legend -->
+  <g id="legend" class="pop-in" style="animation-delay:.24s" aria-label="Легенда">
+    <rect class="panel" x="70" y="800" width="1260" height="36" filter="url(#shadow-neutral)"/>
+    <line x1="90" y1="820" x2="120" y2="820" class="bus-arrow flow-anim"/><text x="130" y="824" class="legend-t">Шины/сообщения</text>
+    <line x1="300" y1="820" x2="330" y2="820" class="ind-arrow flow-anim"/><text x="340" y="824" class="legend-t">Промышленные/полевые</text>
+    <line x1="560" y1="820" x2="590" y2="820" class="vid-arrow flow-anim"/><text x="600" y="824" class="legend-t">Видео</text>
+    <line x1="760" y1="820" x2="790" y2="820" class="sec-arrow flow-anim"/><text x="800" y="824" class="legend-t">Безопасность/идентификация</text>
+    <line x1="1000" y1="820" x2="1030" y2="820" class="arrow flow-anim"/><text x="1040" y="824" class="legend-t">Общий транспорт</text>
+  </g>
+
+  <!-- Vertical layer hints (icons) -->
+  <g class="pop-in" style="animation-delay:.02s">
+    <use href="#badge" x="34" y="135" width="30" height="30"/><text x="49" y="155" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">1↔2</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.06s">
+    <use href="#badge" x="34" y="225" width="30" height="30"/><text x="49" y="245" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">2↔3</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.10s">
+    <use href="#badge" x="34" y="315" width="30" height="30"/><text x="49" y="335" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">3↔4</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.14s">
+    <use href="#badge" x="34" y="405" width="30" height="30"/><text x="49" y="425" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">4↔5</text>
+  </g>
+</svg>

@@ -1,0 +1,237 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="auto" viewBox="0 0 1300 1000" role="img" aria-labelledby="title desc">
+  <title id="title">UC6: Диаграмма мониторинга и предиктивного обслуживания оборудования</title>
+  <desc id="desc">IIoT-архитектура: датчики оборудования → Edge-шлюз → ML-аналитика → BMS-корреляция → Платформа Maintenance → уведомление персоналу</desc>
+
+  <!-- Definitions -->
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="panelGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#f8fafc" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="sideGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f0f9ff"/>
+      <stop offset="100%" stop-color="#e0f2fe"/>
+    </linearGradient>
+    <linearGradient id="successGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ecfdf5"/>
+      <stop offset="100%" stop-color="#dcfce7"/>
+    </linearGradient>
+    <linearGradient id="warnGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff7ed"/>
+      <stop offset="100%" stop-color="#ffedd5"/>
+    </linearGradient>
+
+    <!-- Shadows -->
+    <filter id="shadow-neutral" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#334155" flood-opacity="0.15"/>
+    </filter>
+    <filter id="shadow-warm" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#f59e0b" flood-opacity="0.2"/>
+    </filter>
+    <filter id="shadow-success" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#16a34a" flood-opacity="0.15"/>
+    </filter>
+    <filter id="shadow-side" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#0284c7" flood-opacity="0.15"/>
+    </filter>
+
+    <!-- Arrow markers -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#475569"/>
+    </marker>
+    <marker id="green-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#16a34a"/>
+    </marker>
+    <marker id="blue-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0284c7"/>
+    </marker>
+
+    <!-- Number badge symbol -->
+    <symbol id="badge" viewBox="0 0 32 32">
+      <defs>
+        <radialGradient id="badgeGrad" cx="50%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#60a5fa"/>
+          <stop offset="100%" stop-color="#3b82f6"/>
+        </radialGradient>
+      </defs>
+      <circle cx="16" cy="16" r="15" fill="url(#badgeGrad)" stroke="#1e40af" stroke-width="1.5"/>
+    </symbol>
+  </defs>
+
+  <!-- Styles -->
+  <style>
+    /* Typography */
+    .title       { font: 700 22px "Segoe UI", Arial, sans-serif; fill: #1e293b; text-anchor: middle; }
+    .process-t   { font: 600 16px "Segoe UI", Arial, sans-serif; fill: #334155; }
+    .detail-t    { font: 12px "Segoe UI", Arial, sans-serif; fill: #64748b; }
+    .decision-t  { font: 600 14px "Segoe UI", Arial, sans-serif; fill: #92400e; text-anchor: middle; }
+    .success-t   { font: 600 16px "Segoe UI", Arial, sans-serif; fill: #166534; }
+    .side-t      { font: 14px "Segoe UI", Arial, sans-serif; fill: #0c4a6e; }
+    .flow-label  { font: 12px "Segoe UI", Arial, sans-serif; fill: #475569; text-anchor: middle; }
+
+    /* Cards */
+    .card { transition: transform 200ms ease, filter 200ms ease; }
+    .card:hover { transform: translateY(-2px); filter: brightness(1.05); }
+    .process-box { fill: url(#panelGradient); stroke: #334155; stroke-width: 1.5; rx: 14; ry: 14; }
+    .decision-diamond { fill: url(#warnGradient); stroke: #f59e0b; stroke-width: 1.5; }
+    .success-box { fill: url(#successGradient); stroke: #16a34a; stroke-width: 1.5; rx: 14; ry: 14; }
+    .side-box { fill: url(#sideGradient); stroke: #0284c7; stroke-width: 1.5; rx: 10; ry: 10; }
+
+    /* Arrows */
+    .arrow { stroke: #475569; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    .success-arrow { stroke: #16a34a; stroke-width: 2; fill: none; marker-end: url(#green-arrow); }
+    .side-arrow { stroke: #0284c7; stroke-width: 2; fill: none; marker-end: url(#blue-arrow); }
+
+    /* Motion */
+    .flow-anim { stroke-dasharray: 8 10; animation: flow 2.5s linear infinite; }
+    .flow-anim.fast { animation-duration: 1.5s; }
+    .pulse { transform-box: fill-box; animation: pulse 2s ease-in-out infinite; transform-origin: 50% 50%; }
+    .pop-in { animation: pop 500ms cubic-bezier(.2,.8,.2,1) both; }
+
+    @keyframes flow {
+      to { stroke-dashoffset: -36; }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50%      { opacity: 1;  transform: scale(1.15); }
+    }
+    @keyframes pop {
+      0% { opacity: 0; transform: translateY(8px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .flow-anim, .pulse, .pop-in { animation: none !important; }
+    }
+  </style>
+
+  <!-- Row 1: Equipment Sensors -->
+  <g id="sensors" class="card pop-in" aria-label="Датчики оборудования">
+    <rect class="process-box" x="475" y="80" width="350" height="90" filter="url(#shadow-neutral)"/>
+    <text x="650" y="105" class="process-t" text-anchor="middle">Датчики вибрации/температуры</text>
+    <text x="650" y="125" class="detail-t" text-anchor="middle">Сбор телеметрии в реальном времени</text>
+    <text x="650" y="145" class="detail-t" text-anchor="middle">Мониторинг состояния активов</text>
+  </g>
+
+  <!-- Row 2: Edge Gateway -->
+  <g id="edge-gateway" class="card pop-in" aria-label="Edge-шлюз">
+    <rect class="process-box" x="475" y="200" width="350" height="90" filter="url(#shadow-neutral)"/>
+    <text x="650" y="225" class="process-t" text-anchor="middle">Edge-шлюз: сбор и обработка</text>
+    <text x="650" y="245" class="detail-t" text-anchor="middle">Фильтрация и агрегация данных</text>
+    <text x="650" y="265" class="detail-t" text-anchor="middle">Передача в облако для анализа</text>
+  </g>
+
+  <!-- Row 3: ML Analytics -->
+  <g id="ml-analytics" class="card pop-in" aria-label="ML-аналитика">
+    <rect class="process-box" x="475" y="320" width="350" height="90" filter="url(#shadow-neutral)"/>
+    <text x="650" y="345" class="process-t" text-anchor="middle">ML-модель: анализ и предсказание</text>
+    <text x="650" y="365" class="detail-t" text-anchor="middle">Обнаружение паттернов износа</text>
+    <text x="650" y="385" class="detail-t" text-anchor="middle">Предиктивные алерты</text>
+
+    <!-- Pulsing indicators -->
+    <circle cx="790" cy="365" r="7" fill="#3b82f6" class="pulse"/>
+    <circle cx="770" cy="365" r="4" fill="#60a5fa" class="pulse" style="animation-delay: .3s"/>
+  </g>
+
+  <!-- Row 4: BMS Correlation -->
+  <g id="bms-correlation" class="card pop-in" aria-label="BMS корреляция">
+    <rect class="process-box" x="475" y="440" width="350" height="90" filter="url(#shadow-neutral)"/>
+    <text x="650" y="465" class="process-t" text-anchor="middle">BMS: корреляция с историей и KPI</text>
+    <text x="650" y="485" class="detail-t" text-anchor="middle">Анализ исторических данных отказов</text>
+    <text x="650" y="505" class="detail-t" text-anchor="middle">Корреляция с плановыми ТО</text>
+  </g>
+
+  <!-- Row 5: Maintenance Platform -->
+  <g id="maintenance-platform" class="card pop-in" aria-label="Платформа Maintenance">
+    <rect class="process-box" x="475" y="560" width="350" height="90" filter="url(#shadow-neutral)"/>
+    <text x="650" y="585" class="process-t" text-anchor="middle">Платформа Maintenance</text>
+    <text x="650" y="605" class="detail-t" text-anchor="middle">Прогнозирование остаточного ресурса</text>
+    <text x="650" y="625" class="detail-t" text-anchor="middle">Расчет вероятности отказа</text>
+  </g>
+
+  <!-- Decision: Dispatcher -->
+  <g id="decision" class="card pop-in" aria-label="Решение диспетчера">
+    <polygon class="decision-diamond" points="650,680 750,730 650,780 550,730" filter="url(#shadow-warm)"/>
+    <text x="650" y="712" class="decision-t">Диспетчер</text>
+    <text x="650" y="732" class="decision-t">Подтверждение</text>
+    <text x="650" y="752" class="decision-t">обслуживания</text>
+  </g>
+
+  <!-- Success: Maintenance Scheduled -->
+  <g id="maintenance-scheduled" class="card pop-in" aria-label="Обслуживание запланировано">
+    <rect class="success-box" x="375" y="820" width="350" height="90" filter="url(#shadow-success)"/>
+    <text x="420" y="845" class="success-t">✓ Обслуживание запланировано</text>
+    <text x="550" y="865" class="detail-t" text-anchor="middle">Work Order создан в MES</text>
+    <text x="550" y="885" class="detail-t" text-anchor="middle">Запчасти зарезервированы</text>
+  </g>
+
+  <!-- Technical Personnel -->
+  <g id="technical-personnel" class="card pop-in" aria-label="Технический персонал">
+    <rect class="side-box" x="775" y="820" width="350" height="90" filter="url(#shadow-side)"/>
+    <text x="860" y="845" class="side-t">👨‍🔧 Технический персонал</text>
+    <text x="950" y="865" class="detail-t" text-anchor="middle">Push-уведомление</text>
+    <text x="950" y="885" class="detail-t" text-anchor="middle">Digital Work Instructions</text>
+  </g>
+
+  <!-- Side: Security -->
+  <g id="security" class="card pop-in" aria-label="Безопасность">
+    <rect class="side-box" x="900" y="320" width="320" height="90" filter="url(#shadow-side)"/>
+    <text x="990" y="345" class="side-t">🔒 Zero Trust Security</text>
+    <text x="1060" y="365" class="detail-t" text-anchor="middle">mTLS для всех соединений</text>
+    <text x="1060" y="385" class="detail-t" text-anchor="middle">Ролевой доступ (RBAC)</text>
+  </g>
+
+  <!-- Side: Digital Twin -->
+  <g id="digital-twin" class="card pop-in" aria-label="Цифровой двойник">
+    <rect class="side-box" x="900" y="440" width="320" height="90" filter="url(#shadow-side)"/>
+    <text x="980" y="465" class="side-t">🔄 Цифровой двойник</text>
+    <text x="1060" y="485" class="detail-t" text-anchor="middle">Моделирование износа</text>
+    <text x="1060" y="505" class="detail-t" text-anchor="middle">Оптимизация ТО</text>
+  </g>
+
+  <!-- Main vertical flow arrows -->
+  <line class="arrow flow-anim" x1="650" y1="170" x2="650" y2="200"/>
+  <line class="arrow flow-anim" x1="650" y1="290" x2="650" y2="320"/>
+  <line class="arrow flow-anim" x1="650" y1="410" x2="650" y2="440"/>
+  <line class="arrow flow-anim" x1="650" y1="530" x2="650" y2="560"/>
+  <line class="arrow flow-anim" x1="650" y1="650" x2="650" y2="680"/>
+
+  <!-- Decision branch arrows -->
+  <line class="success-arrow flow-anim fast" x1="600" y1="780" x2="525" y2="820"/>
+  <line class="side-arrow flow-anim fast" x1="700" y1="780" x2="950" y2="820"/>
+
+  <!-- Side arrows to security and digital twin -->
+  <line class="side-arrow flow-anim" x1="825" y1="365" x2="900" y2="365"/>
+  <line class="side-arrow flow-anim" x1="825" y1="485" x2="900" y2="485"/>
+
+  <!-- Labels for decision branches -->
+  <text x="550" y="785" class="flow-label" style="fill: #16a34a; font-weight: 700;">ДА</text>
+  <text x="825" y="785" class="flow-label" style="fill: #0284c7; font-weight: 700;">УВЕДОМИТЬ</text>
+
+  <!-- Flow step numbers -->
+  <g class="pop-in" style="animation-delay: .05s">
+    <use href="#badge" x="460" y="92" width="32" height="32"/>
+    <text x="476" y="112" style="font: 700 13px Arial; fill: #fff; text-anchor: middle;">1</text>
+  </g>
+  <g class="pop-in" style="animation-delay: .1s">
+    <use href="#badge" x="460" y="212" width="32" height="32"/>
+    <text x="476" y="232" style="font: 700 13px Arial; fill: #fff; text-anchor: middle;">2</text>
+  </g>
+  <g class="pop-in" style="animation-delay: .15s">
+    <use href="#badge" x="460" y="332" width="32" height="32"/>
+    <text x="476" y="352" style="font: 700 13px Arial; fill: #fff; text-anchor: middle;">3</text>
+  </g>
+  <g class="pop-in" style="animation-delay: .2s">
+    <use href="#badge" x="460" y="452" width="32" height="32"/>
+    <text x="476" y="472" style="font: 700 13px Arial; fill: #fff; text-anchor: middle;">4</text>
+  </g>
+  <g class="pop-in" style="animation-delay: .25s">
+    <use href="#badge" x="460" y="572" width="32" height="32"/>
+    <text x="476" y="592" style="font: 700 13px Arial; fill: #fff; text-anchor: middle;">5</text>
+  </g>
+
+  <!-- Footer notes -->
+  <text x="650" y="950" class="detail-t" text-anchor="middle">
+    IIoT Enterprise Architecture: интеграция OT/IT систем с предиктивной аналитикой
+  </text>
+</svg>

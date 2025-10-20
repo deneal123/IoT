@@ -1,0 +1,255 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="auto" viewBox="0 0 1300 850" role="img" aria-labelledby="title desc">
+  <title id="title">UC10: Таймлайн бизнес-аналитики и отчетности для менеджмента</title>
+  <desc id="desc">Этапы: сбор данных из подсистем → агрегация Big Data → расчет KPI (OEE, ROI) → визуализация дэшбордов → отчетность для менеджмента и ERP</desc>
+
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="panelGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#f8fafc" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="sideGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f0f9ff"/>
+      <stop offset="100%" stop-color="#e0f2fe"/>
+    </linearGradient>
+    <linearGradient id="successGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ecfdf5"/>
+      <stop offset="100%" stop-color="#dcfce7"/>
+    </linearGradient>
+    <linearGradient id="warnGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff7ed"/>
+      <stop offset="100%" stop-color="#ffedd5"/>
+    </linearGradient>
+
+    <!-- Shadows -->
+    <filter id="shadow-neutral" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#334155" flood-opacity="0.15"/>
+    </filter>
+    <filter id="shadow-side" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#0284c7" flood-opacity="0.15"/>
+    </filter>
+    <filter id="shadow-warn" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#f59e0b" flood-opacity="0.2"/>
+    </filter>
+    <filter id="shadow-success" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#16a34a" flood-opacity="0.15"/>
+    </filter>
+
+    <!-- Arrows -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#475569"/>
+    </marker>
+    <marker id="green-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#16a34a"/>
+    </marker>
+    <marker id="amber-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#f59e0b"/>
+    </marker>
+    <marker id="blue-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0284c7"/>
+    </marker>
+
+    <!-- Step badge -->
+    <symbol id="badge" viewBox="0 0 32 32">
+      <defs>
+        <radialGradient id="badgeGrad" cx="50%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#60a5fa"/>
+          <stop offset="100%" stop-color="#3b82f6"/>
+        </radialGradient>
+      </defs>
+      <circle cx="16" cy="16" r="15" fill="url(#badgeGrad)" stroke="#1e40af" stroke-width="1.5"/>
+    </symbol>
+  </defs>
+
+  <style>
+    .title       { font: 700 22px "Segoe UI", Arial, sans-serif; fill: #1e293b; text-anchor: middle; }
+    .phase-t     { font: 600 16px "Segoe UI", Arial, sans-serif; fill: #334155; }
+    .detail-t    { font: 12px "Segoe UI", Arial, sans-serif; fill: #64748b; }
+    .legend-t    { font: 12px "Segoe UI", Arial, sans-serif; fill: #475569; }
+    .kpi-t       { font: 600 14px "Segoe UI", Arial, sans-serif; fill: #0c4a6e; }
+    .timeline-t  { font: 600 14px "Segoe UI", Arial, sans-serif; fill: #1e40af; text-anchor: middle; }
+    .timeline-s  { font: 12px "Segoe UI", Arial, sans-serif; fill: #64748b; text-anchor: middle; }
+
+    .card { transition: transform 200ms ease, filter 200ms ease; }
+    .card:hover { transform: translateY(-2px); filter: brightness(1.05); }
+
+    .phase-box { fill: url(#panelGradient); stroke: #334155; stroke-width: 1.5; rx: 14; ry: 14; }
+    .critical-box { fill: url(#warnGradient); stroke: #f59e0b; stroke-width: 1.5; rx: 14; ry: 14; }
+    .report-box { fill: url(#successGradient); stroke: #16a34a; stroke-width: 1.5; rx: 14; ry: 14; }
+    .side-box { fill: url(#sideGradient); stroke: #0284c7; stroke-width: 1.5; rx: 10; ry: 10; }
+
+    .arrow { stroke: #475569; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    .success-arrow { stroke: #16a34a; stroke-width: 2; fill: none; marker-end: url(#green-arrow); }
+    .warn-arrow { stroke: #f59e0b; stroke-width: 2.5; fill: none; marker-end: url(#amber-arrow); stroke-dasharray: 8 6; }
+    .side-arrow { stroke: #0284c7; stroke-width: 2; fill: none; marker-end: url(#blue-arrow); stroke-dasharray: 5 5; }
+
+    .timeline { stroke: #1e40af; stroke-width: 3; fill: none; }
+    .timedash { stroke-dasharray: 8 12; animation: flow 6s linear infinite; }
+    .marker { fill: #3b82f6; stroke: #1e40af; stroke-width: 2; }
+
+    .flow-anim { stroke-dasharray: 8 10; animation: flow 2.5s linear infinite; }
+    .flow-anim.fast { animation-duration: 1.5s; }
+    .pulse { transform-box: fill-box; animation: pulse 2s ease-in-out infinite; transform-origin: 50% 50%; }
+    .pop-in { animation: pop 500ms cubic-bezier(.2,.8,.2,1) both; }
+    .blink { animation: blink 1.6s step-end infinite; }
+
+    @keyframes flow { to { stroke-dashoffset: -40; } }
+    @keyframes pulse { 0%,100%{opacity:.4;transform:scale(1)} 50%{opacity:1;transform:scale(1.15)} }
+    @keyframes pop { 0%{opacity:0;transform:translateY(8px) scale(.95)} 100%{opacity:1;transform:translateY(0) scale(1)} }
+    @keyframes blink { 0%{opacity:0} 50%{opacity:1} 100%{opacity:0} }
+
+    @media (prefers-reduced-motion: reduce) {
+      .flow-anim, .pulse, .pop-in, .blink, .timedash { animation: none !important; }
+    }
+  </style>
+
+  <!-- Timeline -->
+  <line x1="100" y1="120" x2="1200" y2="120" class="timeline timedash"/>
+
+  <!-- Timeline markers -->
+  <g class="pop-in" style="animation-delay:.02s">
+    <circle cx="150" cy="120" r="8" class="marker pulse"/>
+    <text x="150" y="145" class="timeline-t">Реал-тайм</text>
+    <text x="150" y="162" class="timeline-s">Постоянный сбор</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.04s">
+    <circle cx="350" cy="120" r="8" class="marker"/>
+    <text x="350" y="145" class="timeline-t">Каждый час</text>
+    <text x="350" y="162" class="timeline-s">Агрегация данных</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.06s">
+    <circle cx="600" cy="120" r="9" class="marker pulse"/>
+    <text x="600" y="145" class="timeline-t">Ежедневно</text>
+    <text x="600" y="162" class="timeline-s">Расчет KPI</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.08s">
+    <circle cx="850" cy="120" r="8" class="marker"/>
+    <text x="850" y="145" class="timeline-t">Реал-тайм</text>
+    <text x="850" y="162" class="timeline-s">Дэшборды</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.10s">
+    <circle cx="1100" cy="120" r="8" class="marker blink"/>
+    <text x="1100" y="145" class="timeline-t">Ежемесячно</text>
+    <text x="1100" y="162" class="timeline-s">Отчетность</text>
+  </g>
+
+  <!-- Phase 1: Data Collection -->
+  <g id="phase1" class="card pop-in" style="animation-delay:.12s" aria-label="Фаза 1: Сбор данных из подсистем">
+    <rect class="phase-box" x="90" y="200" width="200" height="130" filter="url(#shadow-neutral)"/>
+    <text x="190" y="225" class="phase-t" text-anchor="middle">Фаза 1</text>
+    <text x="190" y="245" class="detail-t" text-anchor="middle">Сбор данных из подсистем</text>
+    <text x="190" y="265" class="detail-t" text-anchor="middle">• IoT/OT данные</text>
+    <text x="190" y="285" class="detail-t" text-anchor="middle">• Big Data потоки</text>
+    <use href="#badge" x="75" y="192" width="32" height="32"/>
+    <text x="91" y="212" style="font:700 13px Arial; fill:#fff; text-anchor:middle;">1</text>
+  </g>
+
+  <!-- Phase 2: Data Aggregation -->
+  <g id="phase2" class="card pop-in" style="animation-delay:.14s" aria-label="Фаза 2: Агрегация и очистка данных">
+    <rect class="phase-box" x="320" y="300" width="200" height="130" filter="url(#shadow-neutral)"/>
+    <text x="420" y="325" class="phase-t" text-anchor="middle">Фаза 2</text>
+    <text x="420" y="345" class="detail-t" text-anchor="middle">Агрегация и очистка</text>
+    <text x="420" y="365" class="detail-t" text-anchor="middle">• Kafka/NATS</text>
+    <text x="420" y="385" class="detail-t" text-anchor="middle">• Data Lake</text>
+    <use href="#badge" x="305" y="292" width="32" height="32"/>
+    <text x="321" y="312" style="font:700 13px Arial; fill:#fff; text-anchor:middle;">2</text>
+  </g>
+
+  <!-- Phase 3: KPI Calculation -->
+  <g id="phase3" class="card pop-in" style="animation-delay:.16s" aria-label="Фаза 3: Расчет KPI">
+    <rect class="critical-box" x="550" y="400" width="220" height="145" filter="url(#shadow-warn)"/>
+    <text x="660" y="425" class="phase-t" text-anchor="middle" style="fill:#92400e">Фаза 3 (ключевая)</text>
+    <text x="660" y="445" class="detail-t" text-anchor="middle">Расчет KPI и аналитика</text>
+    <text x="660" y="465" class="detail-t" text-anchor="middle">• OEE: 87.5%</text>
+    <text x="660" y="485" class="detail-t" text-anchor="middle">• ROI: 23.8%</text>
+    <text x="660" y="505" class="detail-t" text-anchor="middle">• ML прогнозы</text>
+    
+    <!-- KPI icons -->
+    <use href="#oee-icon" x="620" y="410" width="20" height="20"/>
+    <use href="#roi-icon" x="645" y="410" width="20" height="20"/>
+    <use href="#badge" x="535" y="392" width="32" height="32"/>
+    <text x="551" y="412" style="font:700 13px Arial; fill:#fff; text-anchor:middle;">3</text>
+  </g>
+
+  <!-- Phase 4: Dashboard Visualization -->
+  <g id="phase4" class="card pop-in" style="animation-delay:.18s" aria-label="Фаза 4: Визуализация дэшбордов">
+    <rect class="phase-box" x="820" y="300" width="200" height="130" filter="url(#shadow-neutral)"/>
+    <text x="920" y="325" class="phase-t" text-anchor="middle">Фаза 4</text>
+    <text x="920" y="345" class="detail-t" text-anchor="middle">Визуализация дэшбордов</text>
+    <text x="920" y="365" class="detail-t" text-anchor="middle">• WebSocket</text>
+    <text x="920" y="385" class="detail-t" text-anchor="middle">• Реал-тайм</text>
+    
+    <!-- Dashboard icon -->
+    <use href="#dashboard-icon" x="880" y="305" width="20" height="20"/>
+    <use href="#badge" x="805" y="292" width="32" height="32"/>
+    <text x="821" y="312" style="font:700 13px Arial; fill:#fff; text-anchor:middle;">4</text>
+  </g>
+
+  <!-- Phase 5: Management Reporting -->
+  <g id="phase5" class="card pop-in" style="animation-delay:.20s" aria-label="Фаза 5: Отчетность для менеджмента">
+    <rect class="report-box" x="1050" y="200" width="200" height="130" filter="url(#shadow-success)"/>
+    <text x="1150" y="225" class="phase-t" text-anchor="middle" style="fill:#166534">Фаза 5</text>
+    <text x="1150" y="245" class="detail-t" text-anchor="middle">Отчетность менеджменту</text>
+    <text x="1150" y="265" class="detail-t" text-anchor="middle">• ERP интеграция</text>
+    <text x="1150" y="285" class="detail-t" text-anchor="middle">• Data-driven решения</text>
+    <use href="#badge" x="1035" y="192" width="32" height="32"/>
+    <text x="1051" y="212" style="font:700 13px Arial; fill:#fff; text-anchor:middle;">5</text>
+  </g>
+
+  <!-- KPI Metrics Display -->
+  <g id="kpi-metrics" class="card pop-in" style="animation-delay:.22s">
+    <rect x="100" y="490" width="400" height="200" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" rx="10" ry="10"/>
+    <text x="300" y="530" class="phase-t" text-anchor="middle">Ключевые метрики IIoT</text>
+    
+    <rect x="120" y="555" width="160" height="55" fill="#dcfce7" rx="6" ry="6"/>
+    <text x="200" y="575" class="detail-t" text-anchor="middle" style="fill:#166534">OEE: 87.5% ↑</text>
+    <text x="200" y="590" class="detail-t" text-anchor="middle" style="fill:#64748b">Overall Equipment</text>
+    <text x="200" y="602" class="detail-t" text-anchor="middle" style="fill:#64748b">Effectiveness</text>
+    
+    <rect x="300" y="555" width="160" height="55" fill="#dcfce7" rx="6" ry="6"/>
+    <text x="380" y="575" class="detail-t" text-anchor="middle" style="fill:#166534">ROI: 23.8%</text>
+    <text x="380" y="590" class="detail-t" text-anchor="middle" style="fill:#64748b">Return on Investment</text>
+    
+    <rect x="120" y="620" width="160" height="55" fill="#fef3c7" rx="6" ry="6"/>
+    <text x="200" y="638" class="detail-t" text-anchor="middle" style="fill:#92400e">Энергоэфф.: 15%</text>
+    <text x="200" y="652" class="detail-t" text-anchor="middle" style="fill:#64748b">Экономия энергии</text>
+    
+    <rect x="300" y="620" width="160" height="55" fill="#fef3c7" rx="6" ry="6"/>
+    <text x="380" y="638" class="detail-t" text-anchor="middle" style="fill:#92400e">MTTR: 4.2ч</text>
+    <text x="380" y="652" class="detail-t" text-anchor="middle" style="fill:#64748b">Mean Time To Repair</text>
+  </g>
+
+  <!-- Technical Stack -->
+  <g id="tech-stack" class="card pop-in" style="animation-delay:.24s">
+    <rect x="850" y="550" width="400" height="140" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" rx="10" ry="10"/>
+    <text x="1050" y="570" class="phase-t" text-anchor="middle">Технический стек аналитики</text>
+    <text x="1050" y="595" class="detail-t" text-anchor="middle">• Big Data: Apache Spark, Kafka</text>
+    <text x="1050" y="615" class="detail-t" text-anchor="middle">• ML: TensorFlow, прогнозные модели</text>
+    <text x="1050" y="635" class="detail-t" text-anchor="middle">• Визуализация: Grafana, Tableau</text>
+    <text x="1050" y="655" class="detail-t" text-anchor="middle">• Интеграция: REST API, SOAP</text>
+    <text x="1050" y="675" class="detail-t" text-anchor="middle">• Безопасность: RBAC, mTLS</text>
+  </g>
+
+  <!-- Flows -->
+  <!-- 1 -> 2 -->
+  <path class="success-arrow flow-anim" d="M290,260 C350,290 380,200 430,300"/>
+  <!-- 2 -> 3 (critical) -->
+  <path class="warn-arrow flow-anim" d="M520,350 C580,380 620,250 660,400"/>
+  <!-- 3 -> 4 -->
+  <path class="success-arrow flow-anim" d="M770,466 C690,438 820,422 820,350"/>
+  <!-- 4 -> 5 -->
+  <path class="success-arrow flow-anim" d="M1020,340 C1050,310 1070,350 1050,268"/>
+  <!-- Auxiliary data bus (dash blue) -->
+  <path class="side-arrow flow-anim" d="M290,220 C500,180 820,180 1050,230"/>
+
+  <!-- Legend -->
+  <g id="legend" class="card pop-in" style="animation-delay:.26s" aria-label="Легенда">
+    <text x="100" y="720" class="phase-t">Легенда:</text>
+    <line x1="100" y1="750" x2="130" y2="750" class="success-arrow flow-anim"/>
+    <text x="135" y="755" class="legend-t">Основной поток данных</text>
+    <line x1="280" y1="750" x2="320" y2="750" class="warn-arrow flow-anim"/>
+    <text x="325" y="755" class="legend-t">Ключевые процессы</text>
+    <line x1="480" y1="750" x2="500" y2="750" class="side-arrow flow-anim"/>
+    <text x="505" y="755" class="legend-t">Вспомогательные связи</text>
+  </g>
+</svg>

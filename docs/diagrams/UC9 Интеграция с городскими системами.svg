@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Smart Crowding Management Diagram (Unified Style v1.0)
+  Palette & tokens (consistent across project):
+  - Ink / Text Dark: #1e293b / #334155 / #475569
+  - Primary (Blue):  base #3b82f6  border #1e40af  accent #0284c7
+  - Success (Green): base #16a34a  bg #dcfce7
+  - Warning (Amber): base #f59e0b  bg #fef3c7
+  - Error (Red):     base #dc2626  bg #fee2e2
+  - Surface (Neutral): bg #f8fafc  side #e0f2fe
+  Typography: "Segoe UI", Arial, sans-serif
+  Corners: 12px primary, 8px side
+  Shadows: soft, directional (2px/4px), colored per intent
+  Motion: subtle, disable when prefers-reduced-motion
+-->
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="100%" height="auto" viewBox="0 0 1000 900"
+     role="img" aria-labelledby="title desc">
+  <title id="title">Диаграмма управления скоплениями</title>
+  <desc id="desc">Поток: старт, видеоаналитика, расчет риска, решение по порогу, при превышении — события BMS корреляция, пересчёт маршрутов, уведомления, табло и действия диспетчера; при отсутствии превышения — продолжение мониторинга; замкнутая обратная связь.</desc>
+
+  <!-- Definitions -->
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="panelGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#f8fafc" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="sideGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f0f9ff"/>
+      <stop offset="100%" stop-color="#e0f2fe"/>
+    </linearGradient>
+    <linearGradient id="successGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ecfdf5"/>
+      <stop offset="100%" stop-color="#dcfce7"/>
+    </linearGradient>
+    <linearGradient id="warnGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff7ed"/>
+      <stop offset="100%" stop-color="#fef3c7"/>
+    </linearGradient>
+
+    <!-- Shadows -->
+    <filter id="shadow-neutral" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#334155" flood-opacity="0.18"/>
+    </filter>
+    <filter id="shadow-warm" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#f59e0b" flood-opacity="0.25"/>
+    </filter>
+    <filter id="shadow-side" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0284c7" flood-opacity="0.18"/>
+    </filter>
+
+    <!-- Arrow markers -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#475569"/>
+    </marker>
+    <marker id="green-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#16a34a"/>
+    </marker>
+    <marker id="red-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#dc2626"/>
+    </marker>
+    <marker id="blue-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0284c7"/>
+    </marker>
+
+    <!-- Number badge symbol -->
+    <symbol id="badge" viewBox="0 0 30 30">
+      <defs>
+        <radialGradient id="badgeGrad" cx="50%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#60a5fa"/>
+          <stop offset="100%" stop-color="#3b82f6"/>
+        </radialGradient>
+      </defs>
+      <circle cx="15" cy="15" r="14" fill="url(#badgeGrad)" stroke="#1e40af" stroke-width="2"/>
+    </symbol>
+  </defs>
+
+  <!-- Styles -->
+  <style>
+    /* Typography */
+    .title       { font: 700 20px "Segoe UI", Arial, sans-serif; fill: #1e293b; text-anchor: middle; }
+    .process-t   { font: 600 15px "Segoe UI", Arial, sans-serif; fill: #334155; }
+    .detail-t    { font: 12px "Segoe UI", Arial, sans-serif;  fill: #64748b; }
+    .decision-t  { font: 600 14px "Segoe UI", Arial, sans-serif; fill: #92400e; text-anchor: middle; }
+    .side-t      { font: 14px "Segoe UI", Arial, sans-serif;  fill: #0c4a6e; }
+    .flow-label  { font: 12px "Segoe UI", Arial, sans-serif;  fill: #475569; text-anchor: middle; }
+    .yes-label   { font: 700 12px "Segoe UI", Arial, sans-serif; fill: #16a34a; }
+    .no-label    { font: 700 12px "Segoe UI", Arial, sans-serif; fill: #dc2626; }
+
+    /* Cards */
+    .card { transition: transform 200ms ease, filter 200ms ease; }
+    .card:hover { transform: translateY(-2px); }
+    .process-box { fill: url(#panelGradient); stroke: #334155; stroke-width: 2; rx: 12; ry: 12; }
+    .decision-diamond { fill: url(#warnGradient); stroke: #f59e0b; stroke-width: 2; }
+    .side-box { fill: url(#sideGradient); stroke: #0284c7; stroke-width: 2; rx: 8; ry: 8; stroke-dasharray: 5,5; }
+
+    /* Terminator (start/end) */
+    .terminator { fill: url(#successGradient); stroke: #16a34a; stroke-width: 2; }
+
+    /* Arrows */
+    .arrow { stroke: #475569; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    .success-arrow { stroke: #16a34a; stroke-width: 2; fill: none; marker-end: url(#green-arrow); }
+    .error-arrow { stroke: #dc2626; stroke-width: 2; fill: none; marker-end: url(#red-arrow); }
+    .side-arrow { stroke: #0284c7; stroke-width: 2; fill: none; stroke-dasharray: 5,5; marker-end: url(#blue-arrow); }
+
+    /* Motion */
+    .flow-anim { stroke-dasharray: 6 8; animation: flow 2.8s linear infinite; }
+    .flow-anim.fast { animation-duration: 1.8s; }
+    .pulse { transform-box: fill-box; animation: pulse 2.2s ease-in-out infinite; transform-origin: 50% 50%; }
+    .pop-in { animation: pop 480ms cubic-bezier(.2,.8,.2,1) both; }
+    .blink { animation: blink 1.6s step-end infinite; }
+
+    @keyframes flow {
+      to { stroke-dashoffset: -28; }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.35; transform: scale(1); }
+      50%      { opacity: 0.9;  transform: scale(1.2); }
+    }
+    @keyframes pop {
+      0% { opacity: 0; transform: translateY(6px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes blink {
+      0% { opacity: 0; }
+      50% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .flow-anim, .pulse, .pop-in, .blink { animation: none !important; }
+    }
+  </style>
+
+  <!-- START -->
+  <g id="start" class="card pop-in" style="animation-delay:.0s" aria-label="Старт">
+    <ellipse class="terminator" cx="280" cy="120" rx="50" ry="25" filter="url(#shadow-neutral)"/>
+    <text x="280" y="125" style="font:700 14px 'Segoe UI', Arial, sans-serif; fill:#166534;" text-anchor="middle">СТАРТ</text>
+  </g>
+
+  <!-- Video Analytics -->
+  <g id="video-analytics" class="card pop-in" style="animation-delay:.05s" aria-label="Городские API (трафик): оценка плотности по зонам">
+    <rect class="process-box" x="80" y="200" width="400" height="70" filter="url(#shadow-neutral)"/>
+    <text x="100" y="228" class="process-t">Городские API (трафик): оценка плотности по зонам</text>
+    <text x="100" y="246" class="detail-t">RTSP/ONVIF потоки → детекция людей → подсчёт плотности (3–5 с)</text>
+
+    <!-- visual camera indicator -->
+    <circle cx="455" cy="215" r="4" fill="#16a34a" class="blink"/>
+    <circle cx="910" cy="440" r="4" fill="#3b82f6" class="pulse" style="animation-delay:.6s"/>
+  </g>
+
+  <!-- Risk Calculation -->
+  <g id="risk-calc" class="card pop-in" style="animation-delay:.10s" aria-label="Расчет индекса риска скопления">
+    <rect class="process-box" x="80" y="320" width="400" height="70" filter="url(#shadow-neutral)"/>
+    <text x="100" y="348" class="process-t">Расчёт индекса риска скопления (R)</text>
+    <text x="100" y="366" class="detail-t">R = (Плотность / Макс_плотность) × Коэф_времени, окно 30 с</text>
+  </g>
+
+  <!-- Decision Diamond -->
+  <g id="decision" class="card pop-in" style="animation-delay:.15s" aria-label="Порог R">
+    <g transform="translate(180,440)">
+      <polygon class="decision-diamond" points="100,0 200,50 100,100 0,50" filter="url(#shadow-warm)"/>
+      <text x="100" y="40" class="decision-t">R ≥ 0.7?</text>
+      <text x="100" y="58" class="decision-t">Превышен порог</text>
+      <text x="100" y="74" class="decision-t">скопления?</text>
+    </g>
+  </g>
+
+  <!-- NO Branch - Continue Monitoring -->
+  <g id="continue-monitor" class="card pop-in" style="animation-delay:.20s" aria-label="Продолжить мониторинг">
+    <rect class="process-box" x="80" y="600" width="300" height="70" filter="url(#shadow-neutral)"/>
+    <text x="100" y="628" class="process-t">Продолжить мониторинг</text>
+    <text x="100" y="646" class="detail-t">Обновление данных через 5 сек;</text>
+        <text x="100" y="660" class="detail-t">лог текущих показателей</text>
+  </g>
+
+  <!-- YES Branch - BMS корреляция Event -->
+  <g id="bms-event" class="card pop-in" style="animation-delay:.22s" aria-label="BMS корреляция Crowding event">
+    <rect class="side-box" x="550" y="320" width="380" height="70" filter="url(#shadow-side)"/>
+    <text x="570" y="348" class="side-t">BMS корреляция: генерация события Crowding (zone_id)</text>
+    <text x="570" y="366" class="detail-t">Публикация в шину событий с метаданными</text>
+    <text x="570" y="382" class="detail-t">Уровни: WARNING (R=0.7–0.89), CRITICAL (R≥0.9)</text>
+  </g>
+
+  <!-- Route Recalculation -->
+  <g id="route-recalc" class="card pop-in" style="animation-delay:.24s" aria-label="Пересчет маршрутов">
+    <rect class="process-box" x="550" y="420" width="380" height="70" filter="url(#shadow-neutral)"/>
+    <text x="570" y="448" class="process-t">CEP/Навигация: пересчёт маршрутов</text>
+    <text x="570" y="466" class="detail-t">Обновление весов рёбер графа проходимости</text>
+  </g>
+
+  <!-- Push Notifications -->
+  <g id="push" class="card pop-in" style="animation-delay:.26s" aria-label="Пуш-уведомления">
+    <rect class="side-box" x="550" y="520" width="380" height="70" filter="url(#shadow-side)"/>
+    <text x="570" y="548" class="side-t">Системы стадиона: пуш-уведомления посетителям</text>
+    <text x="570" y="566" class="detail-t">Геозона-таргетинг: радиус 50 м от проблемной зоны</text>
+  </g>
+
+  <!-- Digital Signage -->
+  <g id="signage" class="card pop-in" style="animation-delay:.28s" aria-label="Цифровые табло">
+    <rect class="side-box" x="550" y="620" width="380" height="70" filter="url(#shadow-side)"/>
+    <text x="570" y="648" class="side-t">Цифровые табло: обновление указателей</text>
+    <text x="570" y="666" class="detail-t">СОУЭ: голосовые объявления + стрелки направления</text>
+  </g>
+
+  <!-- Dispatcher -->
+  <g id="dispatcher" class="card pop-in" style="animation-delay:.30s" aria-label="Диспетчер">
+    <rect class="process-box" x="550" y="720" width="380" height="70" filter="url(#shadow-neutral)"/>
+    <text x="570" y="748" class="process-t">Диспетчер: уведомление + ручное управление</text>
+    <text x="570" y="766" class="detail-t">Dashboard-алерт; подтверждение автодействий</text>
+  </g>
+
+  <!-- END -->
+  <g id="end" class="card pop-in" style="animation-delay:.34s" aria-label="Конец">
+    <ellipse class="terminator" cx="740" cy="845" rx="50" ry="25" filter="url(#shadow-neutral)"/>
+    <text x="740" y="850" style="font:700 14px 'Segoe UI', Arial, sans-serif; fill:#166534;" text-anchor="middle">КОНЕЦ</text>
+  </g>
+
+  <!-- Main Flow Arrows -->
+  <path class="arrow flow-anim" d="M280,145 L280,200"/>
+  <path class="arrow flow-anim" d="M280,270 L280,320"/>
+  <path class="arrow flow-anim" d="M280,390 L280,440"/>
+
+  <!-- Decision Arrows -->
+  <path class="error-arrow flow-anim fast" d="M180,490 L180,560 L230,600"/>
+  <text x="150" y="530" class="no-label">НЕТ</text>
+
+  <path class="success-arrow flow-anim fast" d="M380,490 L480,490 L550,350"/>
+  <text x="420" y="483" class="yes-label">ДА</text>
+
+  <!-- Sequential Actions Flow (YES path) -->
+  <path class="arrow flow-anim" d="M740,390 L740,420"/>
+  <path class="arrow flow-anim" d="M740,490 L740,520"/>
+  <path class="arrow flow-anim" d="M740,590 L740,620"/>
+  <path class="arrow flow-anim" d="M740,690 L740,720"/>
+  <path class="arrow flow-anim" d="M740,790 L740,820"/>
+
+  <!-- Feedback Loop -->
+  <path class="side-arrow flow-anim" d="M80,635 L50,635 L50,260 L80,240"/>
+  <text x="60" y="430" class="flow-label" transform="rotate(-90 60 450)" fill="#0284c7">Обратная связь</text>
+
+  <!-- Flow step numbers (badges) -->
+  <g class="pop-in" style="animation-delay:.10s">
+    <use href="#badge" x="65" y="210" width="30" height="30"/><text x="80" y="230" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">1</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.14s">
+    <use href="#badge" x="65" y="330" width="30" height="30"/><text x="80" y="350" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">2</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.22s">
+    <use href="#badge" x="535" y="330" width="30" height="30"/><text x="550" y="350" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">3</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.24s">
+    <use href="#badge" x="535" y="430" width="30" height="30"/><text x="550" y="450" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">4</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.26s">
+    <use href="#badge" x="535" y="530" width="30" height="30"/><text x="550" y="550" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">5</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.28s">
+    <use href="#badge" x="535" y="630" width="30" height="30"/><text x="550" y="650" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">6</text>
+  </g>
+  <g class="pop-in" style="animation-delay:.30s">
+    <use href="#badge" x="535" y="730" width="30" height="30"/><text x="550" y="750" style="font:700 12px Arial; fill:#fff; text-anchor:middle;">7</text>
+  </g>
+
+  <!-- Legend -->
+  <g id="legend" class="pop-in" style="animation-delay:.36s" aria-label="Легенда">
+    <text x="50" y="820" class="detail-t">Легенда:</text>
+    <rect class="process-box" x="50" y="830" width="24" height="16" rx="4" ry="4" filter="url(#shadow-neutral)"/>
+    <text x="82" y="842" class="detail-t">Внутренний процесс</text>
+    <rect class="side-box" x="240" y="830" width="24" height="16" rx="4" ry="4" filter="url(#shadow-side)"/>
+    <text x="272" y="842" class="detail-t">Внешняя система</text>
+    <polygon class="decision-diamond" points="420,830 436,838 420,846 404,838" filter="url(#shadow-warm)"/>
+    <text x="450" y="842" class="detail-t">Точка решения</text>
+  </g>
+</svg>
